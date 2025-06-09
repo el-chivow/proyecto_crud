@@ -1,24 +1,67 @@
-# Node modules
+# ======================
+# Node.js dependencies
+# ======================
 node_modules/
 
-# Environment files
+# ======================
+# Environment variables
+# ======================
 .env
+.env.*   # Soporta .env.development, .env.production, etc.
 
+# ======================
 # Logs
+# ======================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 *.log
 
-# OS files
+# ======================
+# OS-specific files
+# ======================
 .DS_Store
 Thumbs.db
 
-# Build / dist
+# ======================
+# Build output
+# ======================
 dist/
 build/
+out/
 
+# ======================
 # IDE/editor settings
+# ======================
 .vscode/
 .idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 
-# Database files
+# ======================
+# Database files (local)
+# ======================
 *.sqlite
 *.db
+*.sql
+
+# ======================
+# Uploaded or temporary files
+# ======================
+uploads/
+*.bak
+*.tmp
+
+# ======================
+# Coverage / test output
+# ======================
+coverage/
+.nyc_output/
+
+# ======================
+# Other misc
+# ======================
+*.tgz
