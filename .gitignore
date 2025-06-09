@@ -1,24 +1,24 @@
-# Ignorar dependencias
+# Node modules
 node_modules/
 
-# Ignorar archivos de entorno (claves, contraseñas, etc.)
+# Environment files
 .env
 
-# Archivos de log
+# Logs
 *.log
-logs/
 
-# Archivos temporales del sistema
+# OS files
 .DS_Store
 Thumbs.db
 
-# Archivos de compilación o producción
+# Build / dist
 dist/
 build/
 
-# Carpetas de editores
+# IDE/editor settings
 .vscode/
 .idea/
 
-# Cobertura de pruebas
-coverage/
+# Database files
+*.sqlite
+*.db
