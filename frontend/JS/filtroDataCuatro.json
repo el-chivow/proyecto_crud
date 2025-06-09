@@ -1,0 +1,965 @@
+[
+  {
+    "id": 1,
+    "subcategoria_id": 1,
+    "nombre": "Azúcar"
+  },
+  {
+    "id": 2,
+    "subcategoria_id": 1,
+    "nombre": "Sal"
+  },
+  {
+    "id": 3,
+    "subcategoria_id": 1,
+    "nombre": "Aceite"
+  },
+  {
+    "id": 4,
+    "subcategoria_id": 1,
+    "nombre": "Frijol"
+  },
+  {
+    "id": 5,
+    "subcategoria_id": 1,
+    "nombre": "Refrescos"
+  },
+  {
+    "id": 6,
+    "subcategoria_id": 1,
+    "nombre": "Botanas"
+  },
+  {
+    "id": 7,
+    "subcategoria_id": 2,
+    "nombre": "Tortilla de maíz"
+  },
+  {
+    "id": 8,
+    "subcategoria_id": 2,
+    "nombre": "Tortilla de harina"
+  },
+  {
+    "id": 9,
+    "subcategoria_id": 2,
+    "nombre": "Totopos"
+  },
+  {
+    "id": 10,
+    "subcategoria_id": 3,
+    "nombre": "Carne de res"
+  },
+  {
+    "id": 11,
+    "subcategoria_id": 3,
+    "nombre": "Pollo"
+  },
+  {
+    "id": 12,
+    "subcategoria_id": 3,
+    "nombre": "Carne de cerdo"
+  },
+  {
+    "id": 13,
+    "subcategoria_id": 3,
+    "nombre": "Chorizo"
+  },
+  {
+    "id": 14,
+    "subcategoria_id": 4,
+    "nombre": "Pan dulce"
+  },
+  {
+    "id": 15,
+    "subcategoria_id": 4,
+    "nombre": "Pan de sal"
+  },
+  {
+    "id": 16,
+    "subcategoria_id": 4,
+    "nombre": "Bolillo"
+  },
+  {
+    "id": 17,
+    "subcategoria_id": 4,
+    "nombre": "Baguette"
+  },
+  {
+    "id": 18,
+    "subcategoria_id": 5,
+    "nombre": "Plátano"
+  },
+  {
+    "id": 19,
+    "subcategoria_id": 5,
+    "nombre": "Manzana"
+  },
+  {
+    "id": 20,
+    "subcategoria_id": 5,
+    "nombre": "Lechuga"
+  },
+  {
+    "id": 21,
+    "subcategoria_id": 5,
+    "nombre": "Tomate"
+  },
+  {
+    "id": 22,
+    "subcategoria_id": 5,
+    "nombre": "Cilantro"
+  },
+  {
+    "id": 23,
+    "subcategoria_id": 6,
+    "nombre": "Reparación de fugas"
+  },
+  {
+    "id": 24,
+    "subcategoria_id": 6,
+    "nombre": "Instalación de tinacos"
+  },
+  {
+    "id": 25,
+    "subcategoria_id": 6,
+    "nombre": "Cambio de llaves"
+  },
+  {
+    "id": 26,
+    "subcategoria_id": 7,
+    "nombre": "Revisión de instalación"
+  },
+  {
+    "id": 27,
+    "subcategoria_id": 7,
+    "nombre": "Cambio de focos"
+  },
+  {
+    "id": 28,
+    "subcategoria_id": 7,
+    "nombre": "Cortocircuitos"
+  },
+  {
+    "id": 29,
+    "subcategoria_id": 8,
+    "nombre": "Puertas"
+  },
+  {
+    "id": 30,
+    "subcategoria_id": 8,
+    "nombre": "Closets"
+  },
+  {
+    "id": 31,
+    "subcategoria_id": 8,
+    "nombre": "Reparación de muebles"
+  },
+  {
+    "id": 32,
+    "subcategoria_id": 9,
+    "nombre": "Protecciones"
+  },
+  {
+    "id": 33,
+    "subcategoria_id": 9,
+    "nombre": "Rejas"
+  },
+  {
+    "id": 34,
+    "subcategoria_id": 9,
+    "nombre": "Puertas metálicas"
+  },
+  {
+    "id": 35,
+    "subcategoria_id": 10,
+    "nombre": "Reparación de muros"
+  },
+  {
+    "id": 36,
+    "subcategoria_id": 10,
+    "nombre": "Colocación de loseta"
+  },
+  {
+    "id": 37,
+    "subcategoria_id": 10,
+    "nombre": "Pintura"
+  },
+  {
+    "id": 38,
+    "subcategoria_id": 11,
+    "nombre": "Paracetamol"
+  },
+  {
+    "id": 39,
+    "subcategoria_id": 11,
+    "nombre": "Ibuprofeno"
+  },
+  {
+    "id": 40,
+    "subcategoria_id": 11,
+    "nombre": "Jarabes"
+  },
+  {
+    "id": 41,
+    "subcategoria_id": 11,
+    "nombre": "Suero"
+  },
+  {
+    "id": 42,
+    "subcategoria_id": 12,
+    "nombre": "Consulta general"
+  },
+  {
+    "id": 43,
+    "subcategoria_id": 12,
+    "nombre": "Curaciones"
+  },
+  {
+    "id": 44,
+    "subcategoria_id": 12,
+    "nombre": "Inyecciones"
+  },
+  {
+    "id": 45,
+    "subcategoria_id": 13,
+    "nombre": "Limpieza dental"
+  },
+  {
+    "id": 46,
+    "subcategoria_id": 13,
+    "nombre": "Extracción"
+  },
+  {
+    "id": 47,
+    "subcategoria_id": 13,
+    "nombre": "Ortodoncia"
+  },
+  {
+    "id": 48,
+    "subcategoria_id": 14,
+    "nombre": "Consulta animal"
+  },
+  {
+    "id": 49,
+    "subcategoria_id": 14,
+    "nombre": "Vacunas"
+  },
+  {
+    "id": 50,
+    "subcategoria_id": 14,
+    "nombre": "Desparasitación"
+  },
+  {
+    "id": 51,
+    "subcategoria_id": 15,
+    "nombre": "Cambio de aceite"
+  },
+  {
+    "id": 52,
+    "subcategoria_id": 15,
+    "nombre": "Alineación"
+  },
+  {
+    "id": 53,
+    "subcategoria_id": 15,
+    "nombre": "Frenos"
+  },
+  {
+    "id": 54,
+    "subcategoria_id": 16,
+    "nombre": "Cambio de llantas"
+  },
+  {
+    "id": 55,
+    "subcategoria_id": 16,
+    "nombre": "Parche"
+  },
+  {
+    "id": 56,
+    "subcategoria_id": 16,
+    "nombre": "Revisión de presión"
+  },
+  {
+    "id": 57,
+    "subcategoria_id": 17,
+    "nombre": "Taxi local"
+  },
+  {
+    "id": 58,
+    "subcategoria_id": 17,
+    "nombre": "Mototaxi"
+  },
+  {
+    "id": 59,
+    "subcategoria_id": 17,
+    "nombre": "Camiones foráneos"
+  },
+  {
+    "id": 60,
+    "subcategoria_id": 18,
+    "nombre": "Copias"
+  },
+  {
+    "id": 61,
+    "subcategoria_id": 18,
+    "nombre": "Impresiones"
+  },
+  {
+    "id": 62,
+    "subcategoria_id": 18,
+    "nombre": "Útiles escolares"
+  },
+  {
+    "id": 63,
+    "subcategoria_id": 19,
+    "nombre": "Impresión"
+  },
+  {
+    "id": 64,
+    "subcategoria_id": 19,
+    "nombre": "Navegación"
+  },
+  {
+    "id": 65,
+    "subcategoria_id": 19,
+    "nombre": "Escaneo"
+  },
+  {
+    "id": 66,
+    "subcategoria_id": 19,
+    "nombre": "Tareas"
+  },
+  {
+    "id": 67,
+    "subcategoria_id": 20,
+    "nombre": "Cambio de pantalla"
+  },
+  {
+    "id": 68,
+    "subcategoria_id": 20,
+    "nombre": "Liberación"
+  },
+  {
+    "id": 69,
+    "subcategoria_id": 20,
+    "nombre": "Cargadores"
+  },
+  {
+    "id": 70,
+    "subcategoria_id": 21,
+    "nombre": "Corte de cabello"
+  },
+  {
+    "id": 71,
+    "subcategoria_id": 21,
+    "nombre": "Tinte"
+  },
+  {
+    "id": 72,
+    "subcategoria_id": 21,
+    "nombre": "Barba"
+  },
+  {
+    "id": 73,
+    "subcategoria_id": 22,
+    "nombre": "Arreglos"
+  },
+  {
+    "id": 74,
+    "subcategoria_id": 22,
+    "nombre": "Ropa a medida"
+  },
+  {
+    "id": 75,
+    "subcategoria_id": 22,
+    "nombre": "Bordados"
+  },
+  {
+    "id": 76,
+    "subcategoria_id": 23,
+    "nombre": "A domicilio"
+  },
+  {
+    "id": 77,
+    "subcategoria_id": 23,
+    "nombre": "Limpieza de casas"
+  },
+  {
+    "id": 78,
+    "subcategoria_id": 23,
+    "nombre": "Planchado"
+  },
+  {
+    "id": 79,
+    "subcategoria_id": 24,
+    "nombre": "Renta de sonido"
+  },
+  {
+    "id": 80,
+    "subcategoria_id": 24,
+    "nombre": "DJ para fiestas"
+  },
+  {
+    "id": 81,
+    "subcategoria_id": 25,
+    "nombre": "Sillas"
+  },
+  {
+    "id": 82,
+    "subcategoria_id": 25,
+    "nombre": "Mesas"
+  },
+  {
+    "id": 83,
+    "subcategoria_id": 25,
+    "nombre": "Lonas"
+  },
+  {
+    "id": 84,
+    "subcategoria_id": 25,
+    "nombre": "Carpas"
+  },
+  {
+    "id": 85,
+    "subcategoria_id": 26,
+    "nombre": "Sesiones"
+  },
+  {
+    "id": 86,
+    "subcategoria_id": 26,
+    "nombre": "Eventos"
+  },
+  {
+    "id": 87,
+    "subcategoria_id": 26,
+    "nombre": "Impresión"
+  },
+  {
+    "id": 88,
+    "subcategoria_id": 27,
+    "nombre": "Camisas"
+  },
+  {
+    "id": 89,
+    "subcategoria_id": 27,
+    "nombre": "Pantalones"
+  },
+  {
+    "id": 90,
+    "subcategoria_id": 27,
+    "nombre": "Chaquetas"
+  },
+  {
+    "id": 91,
+    "subcategoria_id": 28,
+    "nombre": "Blusas"
+  },
+  {
+    "id": 92,
+    "subcategoria_id": 28,
+    "nombre": "Faldas"
+  },
+  {
+    "id": 93,
+    "subcategoria_id": 28,
+    "nombre": "Vestidos"
+  },
+  {
+    "id": 94,
+    "subcategoria_id": 29,
+    "nombre": "Zapatos"
+  },
+  {
+    "id": 95,
+    "subcategoria_id": 29,
+    "nombre": "Sandalias"
+  },
+  {
+    "id": 96,
+    "subcategoria_id": 29,
+    "nombre": "Botas"
+  },
+  {
+    "id": 97,
+    "subcategoria_id": 30,
+    "nombre": "Bolsos"
+  },
+  {
+    "id": 98,
+    "subcategoria_id": 30,
+    "nombre": "Joyería"
+  },
+  {
+    "id": 99,
+    "subcategoria_id": 30,
+    "nombre": "Gafas de sol"
+  },
+  {
+    "id": 100,
+    "subcategoria_id": 31,
+    "nombre": "Sofás"
+  },
+  {
+    "id": 101,
+    "subcategoria_id": 31,
+    "nombre": "Mesas"
+  },
+  {
+    "id": 102,
+    "subcategoria_id": 31,
+    "nombre": "Sillas"
+  },
+  {
+    "id": 103,
+    "subcategoria_id": 32,
+    "nombre": "Cuadros"
+  },
+  {
+    "id": 104,
+    "subcategoria_id": 32,
+    "nombre": "Lámparas"
+  },
+  {
+    "id": 105,
+    "subcategoria_id": 32,
+    "nombre": "Cortinas"
+  },
+  {
+    "id": 106,
+    "subcategoria_id": 33,
+    "nombre": "Refrigeradores"
+  },
+  {
+    "id": 107,
+    "subcategoria_id": 33,
+    "nombre": "Lavadoras"
+  },
+  {
+    "id": 108,
+    "subcategoria_id": 33,
+    "nombre": "Microondas"
+  },
+  {
+    "id": 109,
+    "subcategoria_id": 34,
+    "nombre": "Ollas"
+  },
+  {
+    "id": 110,
+    "subcategoria_id": 34,
+    "nombre": "Sartenes"
+  },
+  {
+    "id": 111,
+    "subcategoria_id": 34,
+    "nombre": "Tazas"
+  },
+  {
+    "id": 112,
+    "subcategoria_id": 35,
+    "nombre": "Autos nuevos"
+  },
+  {
+    "id": 113,
+    "subcategoria_id": 35,
+    "nombre": "Autos usados"
+  },
+  {
+    "id": 114,
+    "subcategoria_id": 36,
+    "nombre": "Llantas"
+  },
+  {
+    "id": 115,
+    "subcategoria_id": 36,
+    "nombre": "Aceites"
+  },
+  {
+    "id": 116,
+    "subcategoria_id": 36,
+    "nombre": "Filtros"
+  },
+  {
+    "id": 117,
+    "subcategoria_id": 37,
+    "nombre": "Reparación de autos"
+  },
+  {
+    "id": 118,
+    "subcategoria_id": 37,
+    "nombre": "Lavado de autos"
+  },
+  {
+    "id": 119,
+    "subcategoria_id": 37,
+    "nombre": "Detailing"
+  },
+  {
+    "id": 120,
+    "subcategoria_id": 38,
+    "nombre": "Casas nuevas"
+  },
+  {
+    "id": 121,
+    "subcategoria_id": 38,
+    "nombre": "Casas usadas"
+  },
+  {
+    "id": 122,
+    "subcategoria_id": 39,
+    "nombre": "Casas en renta"
+  },
+  {
+    "id": 123,
+    "subcategoria_id": 39,
+    "nombre": "Departamentos en renta"
+  },
+  {
+    "id": 124,
+    "subcategoria_id": 40,
+    "nombre": "Asesoría legal"
+  },
+  {
+    "id": 125,
+    "subcategoria_id": 40,
+    "nombre": "Remodelación"
+  },
+  {
+    "id": 126,
+    "subcategoria_id": 40,
+    "nombre": "Tasación"
+  },
+  {
+    "id": 127,
+    "subcategoria_id": 41,
+    "nombre": "Pinturas"
+  },
+  {
+    "id": 128,
+    "subcategoria_id": 41,
+    "nombre": "Esculturas"
+  },
+  {
+    "id": 129,
+    "subcategoria_id": 41,
+    "nombre": "Fotografía"
+  },
+  {
+    "id": 130,
+    "subcategoria_id": 42,
+    "nombre": "Libros"
+  },
+  {
+    "id": 131,
+    "subcategoria_id": 42,
+    "nombre": "Revistas"
+  },
+  {
+    "id": 132,
+    "subcategoria_id": 42,
+    "nombre": "Cuadernos"
+  },
+  {
+    "id": 133,
+    "subcategoria_id": 43,
+    "nombre": "Obras"
+  },
+  {
+    "id": 134,
+    "subcategoria_id": 43,
+    "nombre": "Espectáculos"
+  },
+  {
+    "id": 135,
+    "subcategoria_id": 43,
+    "nombre": "Proyecciones"
+  },
+  {
+    "id": 136,
+    "subcategoria_id": 44,
+    "nombre": "Gimnasio"
+  },
+  {
+    "id": 137,
+    "subcategoria_id": 44,
+    "nombre": "Yoga"
+  },
+  {
+    "id": 138,
+    "subcategoria_id": 44,
+    "nombre": "Crossfit"
+  },
+  {
+    "id": 139,
+    "subcategoria_id": 45,
+    "nombre": "Pelotas"
+  },
+  {
+    "id": 140,
+    "subcategoria_id": 45,
+    "nombre": "Raquetas"
+  },
+  {
+    "id": 141,
+    "subcategoria_id": 45,
+    "nombre": "Bicicletas"
+  },
+  {
+    "id": 142,
+    "subcategoria_id": 46,
+    "nombre": "Pistas de patinaje"
+  },
+  {
+    "id": 143,
+    "subcategoria_id": 46,
+    "nombre": "Parques"
+  },
+  {
+    "id": 144,
+    "subcategoria_id": 46,
+    "nombre": "Canchas de fútbol"
+  },
+  {
+    "id": 145,
+    "subcategoria_id": 47,
+    "nombre": "Laptops"
+  },
+  {
+    "id": 146,
+    "subcategoria_id": 47,
+    "nombre": "PCs"
+  },
+  {
+    "id": 147,
+    "subcategoria_id": 47,
+    "nombre": "Accesorios"
+  },
+  {
+    "id": 148,
+    "subcategoria_id": 48,
+    "nombre": "Smart TVs"
+  },
+  {
+    "id": 149,
+    "subcategoria_id": 48,
+    "nombre": "Pantallas LED"
+  },
+  {
+    "id": 150,
+    "subcategoria_id": 48,
+    "nombre": "Proyectores"
+  },
+  {
+    "id": 151,
+    "subcategoria_id": 49,
+    "nombre": "Cámaras"
+  },
+  {
+    "id": 152,
+    "subcategoria_id": 49,
+    "nombre": "Auriculares"
+  },
+  {
+    "id": 153,
+    "subcategoria_id": 49,
+    "nombre": "Relojes inteligentes"
+  },
+  {
+    "id": 154,
+    "subcategoria_id": 50,
+    "nombre": "Tacos"
+  },
+  {
+    "id": 155,
+    "subcategoria_id": 50,
+    "nombre": "Quesadillas"
+  },
+  {
+    "id": 156,
+    "subcategoria_id": 50,
+    "nombre": "Enchiladas"
+  },
+  {
+    "id": 157,
+    "subcategoria_id": 50,
+    "nombre": "Sopes"
+  },
+  {
+    "id": 158,
+    "subcategoria_id": 50,
+    "nombre": "Huaraches"
+  },
+  {
+    "id": 159,
+    "subcategoria_id": 50,
+    "nombre": "Tostadas"
+  },
+  {
+    "id": 160,
+    "subcategoria_id": 50,
+    "nombre": "Gorditas"
+  },
+  {
+    "id": 161,
+    "subcategoria_id": 50,
+    "nombre": "Tamales"
+  },
+  {
+    "id": 162,
+    "subcategoria_id": 50,
+    "nombre": "Elotes y esquites"
+  },
+  {
+    "id": 163,
+    "subcategoria_id": 50,
+    "nombre": "Hamburguesas",
+    "imagen": "./img/hamburguesa1.jpg",
+    "descripcion": "Disfruta hamburguesa con tu proveedor favorito"
+
+  },
+  {
+    "id": 164,
+    "subcategoria_id": 50,
+    "nombre": "Hot dogs"
+  },
+  {
+    "id": 165,
+    "subcategoria_id": 50,
+    "nombre": "Burritos"
+  },
+  {
+    "id": 166,
+    "subcategoria_id": 50,
+    "nombre": "Pozole"
+  },
+  {
+    "id": 167,
+    "subcategoria_id": 50,
+    "nombre": "Barbacoa"
+  },
+  {
+    "id": 168,
+    "subcategoria_id": 50,
+    "nombre": "Birria"
+  },
+
+
+
+
+
+  
+
+  {
+    "id": 169,
+    "subcategoria_id": 51,
+    "nombre": "Camisetas personalizadas"
+  },
+  {
+    "id": 170,
+    "subcategoria_id": 51,
+    "nombre": "Bordado de logotipos"
+  },
+  {
+    "id": 171,
+    "subcategoria_id": 51,
+    "nombre": "Impresión en tazas"
+  },
+  {
+    "id": 172,
+    "subcategoria_id": 51,
+    "nombre": "Invitaciones para eventos"
+  },
+  {
+    "id": 173,
+    "subcategoria_id": 51,
+    "nombre": "Publicidad en vinil"
+  },
+  {
+    "id": 174,
+    "subcategoria_id": 51,
+    "nombre": "Lonas y banners"
+  },
+  {
+    "id": 175,
+    "subcategoria_id": 51,
+    "nombre": "Uniformes bordados"
+  },
+  {
+    "id": 176,
+    "subcategoria_id": 52,
+    "nombre": "Declaración anual"
+  },
+  {
+    "id": 177,
+    "subcategoria_id": 52,
+    "nombre": "Facturación electrónica"
+  },
+  {
+    "id": 178,
+    "subcategoria_id": 52,
+    "nombre": "Nómina"
+  },
+  {
+    "id": 179,
+    "subcategoria_id": 52,
+    "nombre": "Contabilidad para pequeños negocios"
+  },
+  {
+    "id": 180,
+    "subcategoria_id": 52,
+    "nombre": "Auditorías fiscales"
+  },
+  {
+    "id": 181,
+    "subcategoria_id": 52,
+    "nombre": "Asesoría SAT"
+  },
+  {
+    "id": 182,
+    "subcategoria_id": 52,
+    "nombre": "Trámites RFC"
+  },
+  {
+    "id": 183,
+    "subcategoria_id": 53,
+    "nombre": "Asesoría jurídica"
+  },
+  {
+    "id": 184,
+    "subcategoria_id": 53,
+    "nombre": "Redacción de contratos"
+  },
+  {
+    "id": 185,
+    "subcategoria_id": 53,
+    "nombre": "Juicios civiles"
+  },
+  {
+    "id": 186,
+    "subcategoria_id": 53,
+    "nombre": "Trámites de divorcio"
+  },
+  {
+    "id": 187,
+    "subcategoria_id": 53,
+    "nombre": "Testamentos"
+  },
+  {
+    "id": 188,
+    "subcategoria_id": 53,
+    "nombre": "Amparos"
+  },
+  {
+    "id": 189,
+    "subcategoria_id": 53,
+    "nombre": "Registro de marca"
+  },
+  {
+    "id": 190,
+    "subcategoria_id": 50,
+    "nombre": "Pizza",
+    "imagen": "./img/pizza1.jpg",
+    "descripcion": "Disfruta la pizza con tu proveedor favorito"
+
+  }
+]

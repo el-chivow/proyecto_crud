@@ -1,0 +1,847 @@
+:root {
+  --primario: #87CEEB;
+  --secundario: #0096FF;
+  --turquesa: #1F2937;
+  --blanco:   #FFFFFF;
+  --grisClaro: #dfe9f3;
+  --degradado: linear-gradient(135deg, #153a6d, #1f4c8a, #3f70b5);
+
+  
+ }
+ /* Globales */
+ html{
+  font-size: 62.5%;
+  box-sizing: border-box; /*Hack para el box model*/
+  scroll-snap-type: y mandatory; /*Sirve para que pare en donde esta lo imporante por ejemplo en servicios, la coniguracion esta mas abajo*/
+ }
+ *, *:before, *:after {
+  box-sizing: inherit;
+}
+#modal {
+  display: none; /* asegurar que está oculto por defecto */
+}
+
+  header { 
+    background-color: #153a6d;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 1.5rem; /* Tamaño del texto */
+    font-weight: bold; /* Opcional: hace el texto más grueso */
+    display: block; /* Ajusta el fondo al tamaño del texto */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header img {
+    max-width: 400px;
+    margin-top: 0;
+    margin-left: 20px;
+    height: auto;
+  }
+
+  .header h1 {
+    margin-right: 10px; /* Agrega un espacio entre el título y la imagen */
+  }
+  .header-content {
+    position: relative; /* Esto permite posicionar absolutamente dentro */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  
+  }
+  .logo {
+  
+    position: absolute;
+    right: 400px; /* Ajusta cuánto quieres que esté a la derecha */
+    top: 60%;
+    transform: translateY(-50%); /* Centra verticalmente */
+    width: 90px; /* Tamaño más grande para efecto "W" de fondo */
+    height: auto;
+    opacity: 0.3; /* Semi transparente para un look aesthetic */
+    z-index: 1; /* Detrás del título */
+    
+  }
+  @media (max-width: 768px) {
+    .logo {
+      width: 90px;
+      opacity: 0.3;
+      right: 160px; /* Ajusta cuánto quieres que esté a la derecha */
+      width: 120px; /* Tamaño más grande para efecto "W" de fondo */
+      
+    }
+  }
+
+  /* Para pantallas más grandes */
+@media (min-width: 431px) {
+  .header-content {
+    display: flex;
+    flex-direction: column; /* Opcional: si quieres que el título esté arriba y el logo abajo */
+    align-items: center; /* Centra horizontalmente los elementos */
+    justify-content: center; /* Centra verticalmente si fuera necesario */
+    text-align: center; /* Centra el texto */
+    margin-bottom: 10px;
+
+
+    
+  }
+
+  .title {
+    margin-bottom: 1rem; /* Espacio entre título y logo */
+    position: relative;
+    z-index: 2; /* Encima de la W */
+  }
+
+}
+  
+ body, h6{
+  
+  font-size: 17px; /* 1 rem = 10px con estos selectores (para adaptar mejor lo px a tv y demas)*/
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: white  
+  
+  }
+
+  /* Navegacion principal */
+.nav-bg {
+  background: var(--degradado);
+  
+}
+.navegacion-principal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.menu {
+  display: none; /* Oculto por defecto */
+  flex-direction: column;
+  align-items: center;
+  background: var(--degradado);
+  width: 100%;
+  padding: 1rem 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Animación al mostrar el menú */
+.menu.show {
+  display: flex; /* Muestra el menú cuando se activa */
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.menu a {
+  color: var(--blanco);
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+/* Efecto escalonado con nth-child */
+.menu.show a:nth-child(1) { animation-delay: 0.1s; }
+.menu.show a:nth-child(2) { animation-delay: 0.2s; }
+.menu.show a:nth-child(3) { animation-delay: 0.3s; }
+.menu.show a:nth-child(4) { animation-delay: 0.4s; }
+.menu.show a:nth-child(5) { animation-delay: 0.4s; }
+.menu.show a:nth-child(6) { animation-delay: 0.4s; }
+
+
+.menu a:hover {
+  color: black;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos para el ícono de menú */
+.menu-icon {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--blanco);
+  margin: 1rem 0;
+
+
+
+}
+
+@media (max-width: 767px) {
+  .menu-icon {
+    display: block; /* Muestra el icono en móviles */
+  }
+
+  .menu {
+    display: none; /* Asegúrate de que el menú esté oculto inicialmente en móviles */
+  }
+
+  .menu.show {
+    display: flex; /* Muestra el menú al activarlo en móviles */
+  }
+}
+
+
+
+@media (min-width: 768px) {
+  .menu {
+    display: flex; /* Menú siempre visible en pantallas grandes */
+    flex-direction: row;
+    justify-content: space-between;
+    position: static;
+    opacity: 1; /* Asegura que el menú sea opaco */
+    pointer-events: auto; /* Permite interactuar con los elementos */
+    transform: translateY(0); /* El menú se muestra de manera normal */
+    transition: none; /* Desactiva la transición de opacidad y transform para pantallas grandes */
+  }
+  .menu-icon {
+      display: none; /* Oculta el icono en pantallas grandes */
+  }
+}
+/* Menú desplegado */
+.menu.show {
+  display: flex; /* Muestra el menú al activarlo */
+}
+  /* Configura el body como contenedor flex */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* La página siempre tendrá la altura completa de la ventana */
+    margin: 0;
+  }  
+  /* Asegura que el main ocupe el espacio restante entre el header y el footer */
+  main {
+    flex: 1;
+  }  
+  /* Restablece los márgenes del footer */
+  footer {
+    margin-top: auto; /* Mueve el footer al final del contenedor */
+    background-color: #007bff; /* Color de fondo del footer */
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+  }  
+  /* Search Section */
+  .search-section {
+    padding: 4rem 0;
+    background-image: url(..//img/atoto1.jpg); /* Reemplaza con la ruta de tu imagen */
+    background-size: cover; /* Hace que la imagen cubra todo el contenedor */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    color: #fff; /* Asegura que el texto sea legible sobre la imagen */
+    text-align: center;
+    position: relative;
+  }
+  
+  /* Opcional: Agregar una capa oscura sobre la imagen para mayor contraste */
+  .search-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad para oscurecer */
+    z-index: 1;
+  }
+  
+  .search-section h2,
+  .search-form, .municipio, .ubicacion  {
+    position: relative;
+    z-index: 2; /* Asegura que el contenido esté encima de la capa oscura */
+  }
+  /* Centrar todo el form */
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ✅ Centra horizontalmente */
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+  
+  
+  .container1 {
+    display: flex;
+    flex-direction: column; /* Asegura que los hijos estén en columna */
+    align-items: center; /* Centra horizontalmente */
+    width: 100%;
+    max-width: 500px; /* Controla el ancho */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .container1 label {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .contenedor-filtros {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Asegura que los hijos estén en columna */
+    align-items: center; /* Centra horizontalmente */
+       
+  }
+
+  
+  @media (max-width: 600px) {
+    .container1 {
+      width: 100%; /* Un poquito más angosto en móviles */
+      padding: 10px;
+      margin: 10px auto; /* Solo separación arriba y abajo */
+    }
+  }
+
+
+  .form-group {
+    display: flex; /* Usamos flex para centrar el contenido dentro del form-group */
+    flex-direction: column; /* Alinea el contenido verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    flex: 1 1 5px;
+    max-width: 400px;
+    width: 100%; /* Asegura que ocupe todo el ancho permitido */
+    margin-bottom: 9px;
+  }
+
+  .form-group label {
+    font-size: 18px;  /* Ajusta el tamaño de la etiqueta */
+  }
+  
+  .selectLetra{
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #f0f8ff; /* Fondo */
+    font-size: 16px;
+    color: #2c3e50; /* Color de texto dentro del select */
+    outline: none;
+    -moz-appearance: none; /* Quitar flechita por defecto (opcional) */
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%233498db" class="bi bi-caret-down-fill" viewBox="0 0 16 16"> <path d="M7.247 11.14l-4.796-5.481c-.566-.647-.106-1.659.753-1.659h9.592c.86 0 1.319 1.012.753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/> </svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+  }
+  .selectLetra:focus {
+    border-color: var(--secundario);
+    background-color: #eaffea;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  /* Contenedor para centrar el botón */
+.boton-contenedor {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  height: 7vh; /* Ajustar al 100% del alto de la pantalla */
+}
+.boton-buscar{
+    font-size: 17px; /* 1 rem = 10px con estos selectores (para adaptar mejor lo px a tv y demas)*/
+    font-family: 'Krub', sans-serif;
+}
+
+/* Estilo general para select y button */
+select, button {
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Estilo específico para el botón */
+button {
+  width: auto; /* Ajusta automáticamente al contenido */
+  padding: 1rem 2rem; /* Espaciado más amplio */
+  background-color: #007bff; /* Azul del botón */
+  color: #fff; /* Texto blanco */
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Efecto suave */
+}
+
+/* Efectos de hover */
+button:hover {
+  background-color: #0056b3; /* Azul más oscuro */
+  transform: scale(1.05); /* Agranda ligeramente */
+}
+
+/* Efecto de foco (accesibilidad) */
+button:focus {
+  outline: 2px solid #0056b3; /* Borde de enfoque */
+  outline-offset: 3px;
+}
+
+/* Estilo específico para el botón de whats */
+.buttonwhats {
+  width: auto; /* Ajusta automáticamente al contenido */
+  padding: 1rem 2rem; /* Espaciado más amplio */
+  background-color: green;
+  color: #fff; /* Texto blanco */
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Efecto suave */
+}
+/* Efectos de hover en boton de whats */
+.buttonwhats:hover {
+  background-color: black; /* Azul más oscuro */
+  transform: scale(1.05); /* Agranda ligeramente */
+}
+
+/* Efecto de foco (accesibilidad) boton de whats */
+.buttonwhats:focus {
+  outline: 2px solid green; /* Borde de enfoque */
+  outline-offset: 3px;
+}
+
+
+  /* Results Section */
+.results-section {
+  padding: 2rem 0;
+  background: #f8f9fa;
+  display: none;
+}
+
+.results-section h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Contenedor de Grid */
+.results-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  gap: 1rem; /* Espaciado entre cuadros */
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+/* Tarjetas */
+.result-card {
+  background: #ffffff;
+  border-radius: 1rem; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 1rem;
+  text-align: center;
+  margin: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 250px; /* Ajusta el ancho si quieres */
+}
+
+/* Efecto Hover */
+.result-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Efecto al pasar el mouse */
+}
+
+/* Imágenes */
+.result-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 0.5rem auto;
+}
+
+/* Textos */
+.result-card h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0.5rem 0 0.2rem 0;
+}
+
+.result-card p {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 0.2rem 0;
+}
+
+.result-card h6 {
+  font-size: 1.5rem;
+  color: black;
+  margin-top: 0.5rem;
+}
+/* Línea decorativa */
+.result-card::after {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 3px;
+  background: linear-gradient(90deg, #4facfe, #00f2fe); /* Línea de colores bonita */
+  margin: 0.8rem auto 0 auto;
+  border-radius: 5px;
+}
+
+/* RESPONSIVE: Ajustes para evitar desbordamientos en móviles */
+@media (max-width: 767px) {
+  .results-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas en móviles */
+    gap: 1rem; /* Reduce el espacio entre elementos */
+  }
+
+  .result-card {
+    height: auto; /* Permite que las tarjetas mantengan la proporción */
+  }
+
+  .result-card img {
+    height: 100px; /* Ajusta la altura de la imagen */
+  }
+}
+
+   /* Mensaje sin resultados */
+   .no-results-message {
+    color: #ff0000;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+ /* Modal */
+.modal {
+  display: none; /* 🔥 Se mantiene oculto hasta que se active */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  /* 🔥 Estas dos líneas son esenciales para centrar */
+  justify-content: center;
+
+  align-items: center;
+}
+
+/* Contenedor del modal */
+.modal-content {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el contenido */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+  max-height: 80vh; /* Limita la altura del modal */
+  overflow-y: auto; /* Permite desplazamiento dentro del modal */
+  }
+
+/* Botón de cierre */
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+  background: none;
+  border: none;
+}
+
+.close:hover {
+  color: #ff0000;
+}
+
+/* Para evitar el desplazamiento del fondo cuando el modal está abierto */
+.no-scroll {
+  overflow: hidden;
+}
+
+.modal-actions {
+  margin: 15px 0;
+}
+
+.modal-actions button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-actions button:hover {
+  background: #0056b3;
+}
+
+.star {
+  font-size: 2rem;
+  color: gray;
+}
+.star.filled {
+  color: gold;
+}
+.stars {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Mapa */
+#mapContainer {
+  margin-top: 15px;
+}
+
+#map {
+  height: 300px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+
+
+
+
+
+.form-control {
+  width: 100%;
+  padding: 10px 20px 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--secundario); /* Color azul al enfocarse */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+
+
+/* Efecto al pasar el mouse sobre el campo de búsqueda */
+.form-control:hover {
+  border-color: var(--secundario);
+}
+
+/* Estilo adicional para el contenedor de resultados */
+#contenedor {
+  margin-top: 20px;
+}
+
+
+/*BUSCADOR ESCRITO FILTRO, CSS DE SUS ESTILOS*/
+
+/* Estilo del formulario */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+}
+
+#input-group-wrapper {
+  position: relative; /* Este es el nuevo contenedor relativo */
+  display: flex;
+  width: 100%;
+}
+
+.input-group-addon {
+  position: absolute;
+  left: 10px; /* Coloca la lupa en el lado izquierdo */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  color: #aaa;
+  pointer-events: none;
+  z-index: 9999;
+
+}
+
+#buscador {
+  font-size: 16px;
+  padding-left: 30px; /* Da espacio para la lupa */
+  border-radius: 8px;
+  width: 100%;  
+}
+.buscador {
+  font-size: 16px;
+}
+
+/* Contenedor general de resultados */
+#contenedor-buscador {
+  position: absolute;
+  top: 100%; /* justo debajo del input */
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  z-index: 1000;
+  display: none;
+  max-height: 300px;
+  overflow-y: auto;
+}
+input[type="text"], input[type="search"] {
+  font-size: 16px;
+}
+/* Estilo para cada resultado */
+.resultado-busqueda {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.resultado-busqueda:hover {
+  background-color: #f9f9f9;
+}
+
+/* Texto del nombre del negocio */
+.resultado-busqueda .nombre-negocio {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Último resultado sin borde inferior */
+.resultado-busqueda:last-child {
+  border-bottom: none;
+}
+
+/* Animación opcional al mostrar */
+#contenedor-buscador.mostrar {
+  display: block;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+.resultado-contenido {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.imagen-negocio img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover; /* Para que la imagen se recorte y no se deforme */
+  border-radius: 8px; /* Bordes redondeados */
+  border: 1px solid #ddd; /* Borde sutil */
+}
+
+.info-negocio {
+  flex-grow: 1;
+}
+
+.nombre-negocio {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.descripcion-negocio {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Para el boton del filtro */
+.btn-filtros {
+  background-color: #e67e22; /* naranja oscuro tipo "pumpkin" */
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* espacio entre ícono y texto */
+  transition: background-color 0.3s ease;
+}   
+.btn-filtros:hover {
+  background-color: #cf711b; /* un poco más oscuro al pasar el cursor */
+}
+.filtro-oculto {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.filtro-visible {
+  max-height: 300px; /* o el valor que se ajuste a tu contenido */
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+/* Contenedor para los botones */
+.botones-filtros {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+  justify-content: center; /* Centra los botones en el contenedor */
+  margin-top: 20px; /* Espaciado superior */
+}
+
+/* Estilo común para los botones */
+.btn-filtros {
+  background-color: #FF6600; /* Naranja oscuro */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-filtros:hover {
+  background-color: #e65c00; /* Cambio de color al pasar el ratón */
+}
+
+.btn-filtros i {
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+}
+
+
+
+

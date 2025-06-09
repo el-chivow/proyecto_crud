@@ -1,0 +1,24 @@
+# Ignorar dependencias
+node_modules/
+
+# Ignorar archivos de entorno (claves, contraseñas, etc.)
+.env
+
+# Archivos de log
+*.log
+logs/
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de compilación o producción
+dist/
+build/
+
+# Carpetas de editores
+.vscode/
+.idea/
+
+# Cobertura de pruebas
+coverage/

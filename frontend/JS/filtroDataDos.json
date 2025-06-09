@@ -1,0 +1,62 @@
+  [
+    {
+      "id": 1,
+      "nombre": "Alimentación y Bebidas"
+    },
+    {
+      "id": 2,
+      "nombre": "Servicios del Hogar"
+    },
+    {
+      "id": 3,
+      "nombre": "Salud y Bienestar"
+    },
+    {
+      "id": 4,
+      "nombre": "Transporte y Mantenimiento"
+    },
+    {
+      "id": 5,
+      "nombre": "Educación y Tecnología"
+    },
+    {
+      "id": 6,
+      "nombre": "Servicios Personales"
+    },
+    {
+      "id": 7,
+      "nombre": "Entretenimiento y Eventos"
+    },
+    {
+      "id": 8,
+      "nombre": "Ropa y Accesorios"
+    },
+    {
+      "id": 9,
+      "nombre": "Hogar y Muebles"
+    },
+    {
+      "id": 10,
+      "nombre": "Automotriz"
+    },
+    {
+      "id": 11,
+      "nombre": "Inmobiliaria"
+    },
+    {
+      "id": 12,
+      "nombre": "Arte y Cultura"
+    },
+    {
+      "id": 13,
+      "nombre": "Deportes y Recreación"
+    },
+    {
+      "id": 14,
+      "nombre": "Tecnología y Electrónica"
+    },
+    {
+      "id": 15,
+      "nombre": "Servicios profesionales"
+    }
+  ]

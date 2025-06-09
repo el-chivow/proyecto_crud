@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Búsqueda Localllll</title>
+  <link rel="stylesheet" href="styleCSS/estilos.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+
+<body> 
+
+
+  <header class="header">
+    <div class="header-content">
+      <h1 class="title">Sistema de Búsqueda Local</h1>
+      <img src="LogoWpng.png" alt="Logo W" class="logo">
+    </div>
+  </header>
+
+  <div class="nav-bg">
+    <nav class="navegacion-principal contenedor">
+      <button type="button" class="menu-icon" aria-label="Abrir menú">
+        &#9776;
+      </button>
+      <div class="menu">
+        <a href="index.html">Inicio</a>
+        <a href="anuncios.html">Anuncios</a>
+        <a href="noticias.html">Noticias Locales</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="contacto.html">Contáctanos</a>
+        <a href="sesion.html">Iniciar sesión</a>
+        
+      </div>
+    </nav>
+</div>
+
+
+  <main>
+    <section class="search-section">
+
+        <div class="container">
+          <h2>Encuentra el servicio que necesitas</h2>
+          <div class="ubicacion">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin" width="44" height="44" viewBox="0 0 24 24" stroke-width="2.5" stroke="#007bff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+            <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+            </svg>            
+            <p class="municipio">Municipio de Atotonilco de Tula, Hidalgo</p>
+        </div> 
+
+
+          <form id="searchForm" class="search-form">
+
+            
+
+            <div class="container1"> <!--Buscador-->
+              <div class="form-group">
+                <label for="buscador">¿Necesitas una búsqueda rápida?</label>
+                <div class="input-group" id="input-group-wrapper">
+                  <!-- Lupa (icono) dentro del input -->
+                  <span class="input-group-addon">
+                    <i class="fas fa-search"></i>
+                  </span>
+                  <input type="search" class="form-control" id="buscador" placeholder="Búsqueda rápida de un servicio o producto..." autocomplete="off" />
+                  <!-- Aquí adentro va el contenedor de resultados -->
+                  <div id="contenedor-buscador"></div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="container1" id="filtro1"> <!--FILTRO 1-->
+              <div class="form-group">
+                <label for="ubicacion">Ubicación</label>
+                <select class="selectLetra" id="ubicacion" name="ubicacion" required>
+                  <option value="" disabled selected>Seleccione una ubicación</option>
+                  <option value="todo">TODAS LAS OPCIONES EN EL MUNICIPIO</option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="boton-contenedor"> <!--Boton de busqueda-->
+              <button id= "bo-buscar" type="submit" class="boton-buscar">Buscar</button>
+            </div>
+
+            <label>¿No encuentras lo que buscas? Haz una búsqueda detallada</label>
+
+            <div class="botones-filtros">
+              <!-- Botón para aparecer y ocultar filtros -->
+              <button id="toggleFiltros" type="button" class="btn-filtros">
+                <i class="fas fa-filter"></i>  Filtros
+              </button>
+              
+              <!-- Botón para resetear todos los valores -->
+              <button id="resetFiltros" type="button" class="btn-filtros">
+                <i class="fas fa-undo"></i>  Resetear
+              </button>
+            </div>      
+
+            <div id="contenedor-filtros" class="contenedor-filtros">
+              
+            <div class="container1" id="filtro2">  <!--FILTRO 2-->
+              <div class="form-group">
+                <label for="categoria">Categoría</label>
+                <select class="selectLetra" id="categoria" name="categoria" required>
+                  <option value="" disabled selected>Seleccione una opción</option>
+                </select>
+              </div>
+          </div>
+
+
+          <div class="container1" id="filtro3"> <!--FILTRO 3-->
+            <div class="form-group">
+                <label for="opciones_especificas">Opciones específicas</label>
+                <select class="selectLetra" id="opciones_especificas" name="opciones_especificas" required>
+                    <option value="" disabled selected>Seleccione una opción específica</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="container1" id="filtro4"> <!--FILTRO 4-->
+          <div class="form-group">
+              <label for="subtemas_especificos">Subtema específico</label>
+              <select class="selectLetra" id="subtemas_especificos" name="subtemas_especificos" required>
+                  <option value="" disabled selected>Seleccione un subtema específico</option>
+              </select>
+          </div>
+      </div>
+    </div>
+
+    </form>
+        </div>
+      </section>
+
+    <!-- Contenedor de Resultados -->
+    <section id="results" class="results-section">
+      <div class="container">
+        <h2>Resultados</h2>
+        <div id="resultsContainer" class="results-container"></div>
+        <p id="noResultsMessage" class="no-results-message" style="display: none;">No se encontraron resultados para la búsqueda.</p>
+      </div>
+    </section>
+
+
+
+    <!-- Ventana Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <h3>Información del Servicio</h3>
+    <div id="modalInfo">
+      <!-- Dinámico: Aquí se cargará la información del clic -->
+    </div> 
+  </div>
+</div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Sistema de Búsqueda Local. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+
+
+  <script type="module" src="JS/js.js"></script> 
+  <script type="module" src="JS/buscador.js"></script>
+  <script type="module" src="JS/filtrosReset.js"></script>  
+
+
+</body>
+</html>

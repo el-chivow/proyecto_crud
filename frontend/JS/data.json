@@ -1,0 +1,99 @@
+[
+    {
+      "localidad_id": 3,
+      "categoria_id": 1,
+      "subcategoria_id": 50,
+      "detalle_ids": [163, 164],
+      "nombre": "Sr. Luis Angel",
+      "negocio": "Hamburguesas y hot-dogs",
+      "ubicacion_full": "Conejos, 1ra seccion sobre la avenida",
+      "informacion_adicional": "Estamos frente a la primaria de conejos, son muy ricas y tenemos referencias",
+      "foto": "./img/hamb.jpg",
+      "foto_lugar": "./img/forrajera.jpeg",
+      "link_google": "https://maps.app.goo.gl/UUbD2jHV1ZewzzcR7",
+      "whatsapp": "7731345747",
+      "horarios": "Lunes a Viernes: 8am - 8pm",
+      "envios_domicilio": "Sí",
+      "rating": 2
+    },
+    {
+      "localidad_id": 1,
+      "categoria_id": 1,
+      "subcategoria_id": 50,
+      "detalle_ids": [154, 163],      
+      "nombre": "Sr. Lauro Lopez",
+      "negocio": "Hamburguesas y Tacos",
+      "ubicacion_full": "Atotonilco de Tula, centro",
+      "informacion_adicional": "Estamos frente a la nueva duela del centro, arriba de Don Timo. Son muy ricas y tenemos referencias",
+      "foto": "./img/hamb.jpg",
+      "foto_lugar": "./img/forrajera.jpeg",
+      "link_google": "https://maps.app.goo.gl/UUbD2jHV1ZewzzcR7",
+      "whatsapp": "",
+      "horarios": "Lunes a Viernes: 8am - 8pm",
+      "envios_domicilio": "Sí",
+      "rating": 1
+    },
+    {
+      "localidad_id": 1,
+      "categoria_id": 1,
+      "subcategoria_id": 50,
+      "detalle_ids": [163],      
+      "nombre": "Don Pelayo Rodríguez",
+      "negocio": "Hamburguesas",
+      "ubicacion_full": "Atotonilco de Tula, centro",
+      "informacion_adicional": "Estamos frente a la nueva duela del centro, arriba de Don Timo. Son muy ricas y tenemos referencias",
+      "foto": "./img/hambpelayo1.jpg",
+      "foto_lugar": "./img/hambpelayo2.jpg",
+      "link_google": "https://maps.app.goo.gl/igdwe4PmtffwxhFX6",
+      "whatsapp": "",
+      "horarios": "Todos los días, menos los Miercoles. De 6pm - 10pm",
+      "envios_domicilio": "No",
+      "rating": 4
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+      "localidad_id": 4,
+      "categoria_id": 15,
+      "subcategoria_id": 52,
+      "detalle_ids": [176,177,178,179,181,182],
+      "nombre": "Lic. Jessica Malagón",
+      "negocio": "Despacho Contable 'Malagon'",
+      "ubicacion_full": "La Cañada",
+      "informacion_adicional": "Estamos ubicado al lado de un taller de serigrafía y un salón de belleza, sobre la carretera",
+      "foto": "./img/malagon1.jpg",
+      "foto_lugar": "./img/malagon2.jpg",
+      "link_google": "https://maps.app.goo.gl/y8oxf1YyeKzZrH1Y9",
+      "whatsapp": "5579419867",
+      "horarios": "De lunes a viernes. De 9:00 am a 6:00 pm",
+      "envios_domicilio": "No Aplica",
+      "rating": 5
+    },
+    {
+      "localidad_id": 2,
+      "categoria_id": 4,
+      "subcategoria_id": 17,
+      "detalle_ids": [57],
+      "nombre": "Diego Rodriguez",
+      "negocio": "Taxi de Diego",
+      "ubicacion_full": "Progreso de Atotonilco",
+      "informacion_adicional": "Llama y cotiza, damos buen precio y somos confiables",
+      "foto": "./img/taxidiego.jpg",
+      "foto_lugar": "./img/taxidiego2.jpg",
+      "link_google": "https://maps.app.goo.gl/QmiRXHYdwmqkz4u97",
+      "whatsapp": "7731862679",
+      "horarios": "De lunes a domingo, varía la disponibilidad",
+      "envios_domicilio": "No Aplica",
+      "rating": 4
+    }
+  ]

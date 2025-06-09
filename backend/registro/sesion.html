@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login con Cookie HTTPOnly</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      display: block;
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+    }
+    #profile-section {
+      display: none;
+    }
+  </style>
+</head>
+<body onload="verificarSesion()">
+<div class="container">
+  <h1>Iniciar Sesión</h1>
+
+  <!-- Sección de login -->
+  <div id="login-section">
+    <form id="loginForm">
+      <input type="text" id="usuario" placeholder="Usuario" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+      <button type="submit">Iniciar Sesión</button>
+      <p>
+        ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- Sección de perfil -->
+  <div id="profile-section">
+    <p id="user-info"></p>
+    <button onclick="cerrarSesion()">Cerrar Sesión</button>
+  </div>
+</div>
+
+  <script>
+    // Iniciar sesión: envía credenciales al backend y recibe cookie con token
+
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const datos = {
+        usuario: document.getElementById("usuario").value,
+        password: document.getElementById("password").value
+      };
+
+      try {
+        const response = await axios.post('http://localhost:4000/api/auth/login', datos, {
+          withCredentials: true
+        });
+
+        if (response.status === 200) {
+          alert("✅ Sesión iniciada correctamente");
+          window.location.href = "./dashboard.html";
+        }
+      } catch (error) {
+        console.error("Error al iniciar sesión:", error);
+        alert("❌ Error de inicio de sesión: " + (error.response?.data?.mensaje || error.message));
+      }
+    });
+
+    // Verificar sesión: pide al backend una ruta protegida y actualiza la interfaz
+    async function verificarSesion() {
+      try {
+        const response = await axios.get('http://localhost:4000/api/auth/protegido', {
+          withCredentials: true
+        });
+
+        const usuario = response.data.usuario;
+        document.getElementById("user-info").innerText = `🔐 Bienvenido, ${usuario.nombre || usuario.usuario}`;
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("profile-section").style.display = "block";
+      } catch (error) {
+        document.getElementById("login-section").style.display = "block";
+        document.getElementById("profile-section").style.display = "none";
+    // Solo muestra el código de error 401
+    if (error.response && error.response.status === 401) {
+      console.clear(); // 🧹 Limpia la consola
+      console.warn("⚠️ Error 401: No autorizado");
+    } else {
+      console.error("⚠️ Error al verificar sesión:", error.message || error);
+    }      }
+    }
+
+    // Cerrar sesión: pide al backend eliminar la cookie
+    async function cerrarSesion() {
+      try {
+        await axios.post('http://localhost:4000/api/auth/logout', null, {
+          withCredentials: true
+        });
+
+        alert("🚪 Sesión cerrada correctamente");
+        verificarSesion(); // actualiza la interfaz
+      } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+        alert("⚠️ No se pudo cerrar sesión");
+      }
+    }
+  </script>
+</body>
+</html>

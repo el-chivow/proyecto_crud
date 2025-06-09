@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Catálogo</title>
+  <style>
+    .oculto { display: none; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-contenido {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .cerrar {
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .galeria img {
+      width: 100px;
+      margin: 5px;
+      border-radius: 8px;
+      object-fit: cover;
+
+        display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+    }
+
+
+    form {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Catálogo</h1>
+  <button id="btn-ver-detalles">Ver más detalles</button>
+
+  <!-- Formulario para subir imágenes fuera del modal -->
+  <form id="formulario-imagenes" enctype="multipart/form-data" >
+    <h3>Subir hasta 4 imágenes</h3>
+    <label for="input-imagenes">Selecciona imágenes:</label>
+<input type="file" id="input-imagenes" name="imagenes" multiple required title="Selecciona una o varias imágenes"/>
+
+    <button type="submit">Subir Imágenes</button>
+    <p id="mensaje-subida"></p>
+  </form>
+
+  <div id="galeria-preview" class="galeria"></div>
+
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-contenido">
+  <span class="cerrar" id="btn-cerrar-modal">&times;</span>
+      <h2>Detalles del producto</h2>
+
+      <p>📦 Nombre: Producto premium</p>
+      <p>📸 Foto pública: <img src="/PROYECTO_CRUD/uploads/foto_publica.jpg" width="100" alt="Foto pública del producto"/></p>
+
+      <!-- Sección para usuarios autenticados -->
+      <div class="solo-autenticado oculto">
+        <p id="nombre-usuario"></p>
+        <p>🖼️ Foto exclusiva principal:</p>
+        <img id="foto-exclusiva" src="" width="100" />
+        <p>📞 WhatsApp: +52 555-123-4567</p>
+
+        <h3>🖼️ Galería de imágenes del usuario</h3>
+        <div id="galeria" class="galeria"></div>
+      </div>
+
+      <!-- Sección para usuarios no autenticados -->
+      <div class="solo-invitado oculto">
+        <p>🔒 Inicia sesión para ver contacto y fotos exclusivas.</p>
+      </div>
+    </div>
+  </div>
+
+<!-- Axios CDN -->
+<script type="module" src="/scripts/verificar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="/scripts/tokenPrueba.js"></script>
+
+
+</body>
+</html>

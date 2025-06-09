@@ -1,0 +1,262 @@
+:root {
+  --primario: #87CEEB;
+  --secundario: #0096FF;
+  --turquesa: #1F2937;
+  --blanco: #FFFFFF;
+  --grisClaro: #dfe9f3;
+  --degradado: linear-gradient(135deg, #153a6d, #1f4c8a, #3f70b5);
+}
+
+/* Globales */
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  scroll-snap-type: y mandatory;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+header {
+  background-color: #153a6d;
+  color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Estilo específico para el botón */
+button {
+  width: auto; /* Ajusta automáticamente al contenido */
+  padding: 1rem 2rem; /* Espaciado más amplio */
+  background-color: #007bff; /* Azul del botón */
+  color: #fff; /* Texto blanco */
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Efecto suave */
+}
+
+/* Efectos de hover */
+button:hover {
+  background-color: #0056b3; /* Azul más oscuro */
+  transform: scale(1.05); /* Agranda ligeramente */
+}
+
+/* Efecto de foco (accesibilidad) */
+button:focus {
+  outline: 2px solid #0056b3; /* Borde de enfoque */
+  outline-offset: 3px;
+}
+
+  /* Navegacion principal */
+  .nav-bg {
+    background: var(--degradado);
+    
+  }
+  .navegacion-principal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  .menu {
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    align-items: center;
+    background: var(--degradado);
+    width: 100%;
+    padding: 1rem 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Animación al mostrar el menú */
+  .menu.show {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  
+  .menu a {
+    color: var(--blanco);
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeInUp 0.4s ease forwards;
+  }
+  
+  /* Efecto escalonado con nth-child */
+  .menu.show a:nth-child(1) { animation-delay: 0.1s; }
+  .menu.show a:nth-child(2) { animation-delay: 0.2s; }
+  .menu.show a:nth-child(3) { animation-delay: 0.3s; }
+  .menu.show a:nth-child(4) { animation-delay: 0.4s; }
+  .menu.show a:nth-child(5) { animation-delay: 0.4s; }
+  .menu.show a:nth-child(6) { animation-delay: 0.4s; }
+  
+  
+  .menu a:hover {
+    color: black;
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Estilos para el ícono de menú */
+  .menu-icon {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: var(--blanco);
+    margin: 1rem 0;
+  }
+  
+  @media (max-width: 767px) {
+    .menu-icon {
+      display: block; /* Muestra el icono en móviles */
+    }
+  
+    .menu {
+      display: none; /* Asegúrate de que el menú esté oculto inicialmente en móviles */
+    }
+  
+    .menu.show {
+      display: flex; /* Muestra el menú al activarlo en móviles */
+    }
+  }
+  
+
+@media (min-width: 768px) {
+  .menu {
+    display: flex; /* Menú siempre visible en pantallas grandes */
+    flex-direction: row;
+    justify-content: space-between;
+    position: static;
+    opacity: 1; /* Asegura que el menú sea opaco */
+    pointer-events: auto; /* Permite interactuar con los elementos */
+    transform: translateY(0); /* El menú se muestra de manera normal */
+    transition: none; /* Desactiva la transición de opacidad y transform para pantallas grandes */
+  }
+
+  .menu-icon {
+    display: none;
+  }
+}
+
+/* Mostrar menú cuando se active */
+.menu.show {
+  display: flex;
+}
+
+/*------------------------------------------------------------------------*/
+
+/* Estilos generales */
+.noticias {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #f8f9fa; /* Color de fondo claro */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #333; /* Color de texto oscuro */
+  margin-bottom: 1rem;
+}
+
+/* Grid para organizar las noticias */
+.noticias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Estilos de cada noticia */
+.noticia {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.noticia:hover {
+  transform: translateY(-5px);
+}
+
+.noticia h3 {
+  font-size: 1.5rem;
+  color: #0056b3; /* Azul corporativo */
+  margin-bottom: 0.5rem;
+}
+
+.noticia p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.noticia a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.noticia a:hover {
+  text-decoration: underline;
+}
+
+/* Media Queries para hacer responsive */
+@media (max-width: 1024px) { /* Tablets y laptops pequeñas */
+  .noticias {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) { /* Tablets y celulares grandes */
+  .noticias {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 480px) { /* Celulares */
+  .noticias {
+      grid-template-columns: 1fr;
+  }
+
+  .noticia {
+      padding: 1rem;
+  }
+}

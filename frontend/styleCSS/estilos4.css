@@ -1,0 +1,241 @@
+:root {
+  --primario: #87CEEB;
+  --secundario: #0096FF;
+  --turquesa: #1F2937;
+  --blanco: #FFFFFF;
+  --grisClaro: #dfe9f3;
+  --degradado: linear-gradient(135deg, #153a6d, #1f4c8a, #3f70b5);
+}
+
+/* Globales */
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  scroll-snap-type: y mandatory;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+header {
+  background-color: #153a6d;
+  color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+   /* Navegacion principal */
+.nav-bg {
+  background: var(--degradado);
+  
+}
+.navegacion-principal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.menu {
+  display: none; /* Oculto por defecto */
+  flex-direction: column;
+  align-items: center;
+  background: var(--degradado);
+  width: 100%;
+  padding: 1rem 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Animación al mostrar el menú */
+.menu.show {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.menu a {
+  color: var(--blanco);
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+/* Efecto escalonado con nth-child */
+.menu.show a:nth-child(1) { animation-delay: 0.1s; }
+.menu.show a:nth-child(2) { animation-delay: 0.2s; }
+.menu.show a:nth-child(3) { animation-delay: 0.3s; }
+.menu.show a:nth-child(4) { animation-delay: 0.4s; }
+.menu.show a:nth-child(5) { animation-delay: 0.4s; }
+.menu.show a:nth-child(6) { animation-delay: 0.4s; }
+
+
+.menu a:hover {
+  color: black;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos para el ícono de menú */
+.menu-icon {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--blanco);
+  margin: 1rem 0;
+}
+
+@media (max-width: 767px) {
+  .menu-icon {
+    display: block; /* Muestra el icono en móviles */
+  }
+
+  .menu {
+    display: none; /* Asegúrate de que el menú esté oculto inicialmente en móviles */
+  }
+
+  .menu.show {
+    display: flex; /* Muestra el menú al activarlo en móviles */
+  }
+}
+
+@media (min-width: 768px) {
+  .menu {
+    display: flex; /* Menú siempre visible en pantallas grandes */
+    flex-direction: row;
+    justify-content: space-between;
+    position: static;
+    opacity: 1; /* Asegura que el menú sea opaco */
+    pointer-events: auto; /* Permite interactuar con los elementos */
+    transform: translateY(0); /* El menú se muestra de manera normal */
+    transition: none; /* Desactiva la transición de opacidad y transform para pantallas grandes */
+  }
+
+  .menu-icon {
+    display: none;
+  }
+}
+
+/* Mostrar menú cuando se active */
+.menu.show {
+  display: flex;
+}
+
+/*------------------------------------------------------------------------*/
+
+
+
+        /* Estilos generales */
+        main {
+          display: grid;
+          place-items: center;  /* Centra tanto horizontal como verticalmente */
+          height: 40vh;
+      }
+
+      .login-container {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .login-form h2 {
+        margin-bottom: 1rem;
+        color: #0056b3;
+    }
+
+    .input-group {
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+
+    .input-group label {
+        display: block;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 0.9rem;
+        display: none;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        width: 100%;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .message {
+        margin-top: 1rem;
+        color: #555;
+    }
+
+    .message a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .message a:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+        .login-container {
+            padding: 1.5rem;
+            width: 90%;
+        }
+    }

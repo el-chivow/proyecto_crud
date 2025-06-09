@@ -1,0 +1,20 @@
+meter cuando ya quede✅ 1. Barra de progreso de carga al subir imágenes
+✅ 2. Alertas flotantes (tipo notificaciones) para éxito y error
+
+
+
+VER LA SEGURIDAD Y PORMENOS DE MULTER
+
+AGREGAR LOS ERRORES, QUE SE IMPRIMIAN CORRECTAMENTE EN LA CONSOLA
+
+Control de acceso al servidor con node.js ESO AL CV, MANEJO DE ERRORES
+
+PARA EJECUTAR NPM RUN DEV: cd "C:\Users\ulise\Desktop\PROYECTO COMPLETO, INICIO DEL FIN\PROYECTO_CRUD"
+
+
+AQUI SE GUARDAN LAS IMAGENES:
+http://localhost:5500/PROYECTO_CRUD/uploads/imagen_85_29.jpg
+http://localhost:4000/api/imagenes/galeria
+http://localhost:4000/api/imagenes/galeria
+http://localhost:5500/PROYECTO_CRUD/uploads/imagen_85_29.jpg
+http://localhost:4000/uploads/imagen_91_29.jpg
