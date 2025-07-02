@@ -3,441 +3,122 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Registro de Usuario y Negocio</title>
-  <link rel="stylesheet" href="styleCSS/estilos4.css" />
+  <title>Registro de Usuario Seguro</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f9f9f9;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+    #mensaje {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <header class="header">
-    <h1>Sistema de Búsqueda Local</h1>
-  </header>
-
-  <main>
-    <div class="login-container">
-      
-      <!-- FORMULARIO 1: Datos del Usuario -->
-      <!-- <form id="formUsuario" class="login-form">
-        <h2>Registro - Nueva cuenta</h2>
-
-        <div class="input-group">
-          <label>Nombre*</label>
-          <input type="text" id="nombreUsuario" required />
-        </div>
-        <div class="input-group">
-          <label>Apellido*</label>
-          <input type="text" id="apellidoUsuario" required />
-        </div>
-        <div class="input-group">
-          <label>Fecha de nacimiento*</label>
-          <input type="date" id="fechaNacimiento" required />
-        </div>
-        <div class="input-group">
-          <label>Num. Tel*</label>
-          <input type="tel" id="telefono" required />
-        </div>
-        <div class="input-group">
-          <label>CURP*</label>
-          <input type="text" id="curp" required />
-        </div>
-        <div class="input-group">
-          <label>RFC</label>
-          <input type="text" id="rfc" />
-        </div>
-        <div class="input-group">
-          <label>Correo electrónico*</label>
-          <input type="email" id="emailUsuario" required />
-        </div>
-        <div class="input-group">
-          <label>Contraseña*</label>
-          <input type="password" id="passwordUsuario" required />
-        </div>
-        <div class="input-group">
-          <input type="checkbox" id="terminos" required />
-          <label for="terminos">Aceptar términos y condiciones*</label>
-        </div>
-
-        <button type="button" onclick="mostrarFormularioNegocio()">Continuar</button>
-      </form> -->
-
-      <form id="formUsuario">
-        <input type="text" name="nombre" placeholder="Nombre" required />
-        <input type="text" name="apellido" placeholder="Apellido" required />
-        <input type="date" name="fechaNacimiento" required />
-        <input type="text" name="telefono" placeholder="Teléfono" required />
-        <input type="text" name="curp" placeholder="CURP" required />
-        <input type="text" name="rfc" placeholder="RFC (opcional)" />
-        <input type="email" name="email" placeholder="Email" required />
-        <input type="password" name="password" placeholder="Contraseña" required />
-        <select name="tipo" required>
-          <option value="CONSUMIDOR">Consumidor</option>
-          <option value="DUENIO">Dueño</option>
-        </select>
-        <button type="submit">Registrar Usuario</button>
-      </form>
-      
-      <script>
-        document.getElementById('formUsuario').addEventListener('submit', async function (e) {
-          e.preventDefault();
-      
-          const formData = new FormData(this);
-          const data = Object.fromEntries(formData);
-      
-          const res = await fetch('http://localhost:3000/registro/usuario', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-      
-          const result = await res.json();
-          console.log(result);
-      
-          // Guarda el ID si el usuario es DUENIO para luego crear el negocio
-          if (result.tipo === 'DUENIO') {
-            localStorage.setItem('usuarioId', result.id);
-          }
-      
-          alert('Usuario registrado');
-        });
-      </script>
-      
-
-      <!-- FORMULARIO 2: Datos del Negocio -->
-      <!-- <form id="formNegocio" class="login-form" style="display: none;">
-        <h2>Registro - Datos del negocio</h2>
-
-        <div class="input-group">
-          <label>Nombre del negocio*</label>
-          <input type="text" id="nombreNegocio" required />
-        </div>
-        <div class="input-group">
-          <label>Ubicación del negocio*</label>
-          <input type="text" id="ubicacionNegocio" required />
-        </div>
-        <div class="input-group">
-          <label>Agregar link desde maps*</label>
-          <input type="url" id="linkMaps" required />
-        </div>
-        <div class="input-group">
-          <label>Código postal*</label>
-          <input type="text" id="codigoPostal" required />
-        </div>
-        <div class="input-group">
-          <label>Rubro del negocio*</label>
-          <select id="rubroNegocio" required>
-            <option value="">Selecciona una opción</option>
-            <option value="Alimentos">Alimentos</option>
-            <option value="Servicios">Servicios</option>
-            <option value="Comercio">Comercio</option> -->
-            <!-- Puedes agregar más rubros -->
-          <!-- </select>
-        </div>
-        <div class="input-group">
-          <label>¿Envíos a domicilio?*</label>
-          <select id="enviosDomicilio" required>
-            <option value="">Selecciona</option>
-            <option value="true">Sí</option>
-            <option value="false">No</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <label>Situación fiscal*</label>
-          <select id="situacionFiscal" required>
-            <option value="">Selecciona</option>
-            <option value="Persona Física">Persona Física</option>
-            <option value="Persona Moral">Persona Moral</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <label>Horarios*</label>
-          <input type="text" id="horarios" required />
-        </div>
-        <div class="input-group">
-          <label>Sube una foto de tu negocio*</label>
-          <input type="url" id="fotoNegocio" required />
-        </div>
-
-        <button type="submit">Registrar</button>
-      </form> -->
-
-      <form id="formNegocio">
-        <input type="text" name="nombre" placeholder="Nombre del negocio" required />
-        <input type="text" name="direccion" placeholder="Dirección" required />
-        <input type="text" name="telefono" placeholder="Teléfono del negocio" required />
-        <button type="submit">Registrar Negocio</button>
-      </form>
-      
-      <script>
-        document.getElementById('formNegocio').addEventListener('submit', async function (e) {
-          e.preventDefault();
-      
-          const usuarioId = localStorage.getItem('usuarioId');
-          if (!usuarioId) {
-            return alert('Primero registra un usuario de tipo DUENIO');
-          }
-      
-          const formData = new FormData(this);
-          const data = Object.fromEntries(formData);
-      
-          const res = await fetch(`http://localhost:3000/registro/negocio/${usuarioId}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-      
-          const result = await res.json();
-          console.log(result);
-      
-          alert('Negocio registrado');
-        });
-      </script>      
-
-    </div>
-  </main>
+  <form id="registroForm">
+    <h2>Registro de Usuario</h2>
+    <input type="text" id="nombre" placeholder="Nombre completo" required />
+    <input type="email" id="correo" placeholder="Correo electrónico" required />
+    <input type="text" id="usuario" placeholder="Nombre de usuario" required />
+    <input type="password" id="password" placeholder="Contraseña" required />
+    <button type="submit">Registrarse</button>
+    <p id="mensaje"></p>
+  </form>
 
   <script>
-    // Variables para guardar los datos del primer formulario
-    let datosUsuario = {};
+    function sanitizar(texto) {
+      return texto.trim()
+        .replace(/[<>{}()[\];'"\\]/g, '') // elimina símbolos comunes de XSS/inyecciones
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
 
-    function mostrarFormularioNegocio() {
-      const formUsuario = document.getElementById("formUsuario");
+    function validarEmail(correo) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
+    }
 
-      if (!document.getElementById("terminos").checked) {
-        alert("Debes aceptar los términos y condiciones.");
+    function validarPassword(password) {
+      return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
+    }
+
+    document.getElementById("registroForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const mensaje = document.getElementById("mensaje");
+      mensaje.innerText = "";
+
+      // Sanitizar campos
+      const nombre = sanitizar(document.getElementById("nombre").value);
+      const correo = sanitizar(document.getElementById("correo").value);
+      const usuario = sanitizar(document.getElementById("usuario").value);
+      const password = document.getElementById("password").value;
+
+      // Validaciones
+      if (!nombre || !correo || !usuario || !password) {
+        mensaje.innerText = "⚠️ Todos los campos son obligatorios.";
         return;
       }
 
-      datosUsuario = {
-        nombre: document.getElementById("nombreUsuario").value,
-        apellido: document.getElementById("apellidoUsuario").value,
-        fechaNacimiento: document.getElementById("fechaNacimiento").value,
-        telefono: document.getElementById("telefono").value,
-        curp: document.getElementById("curp").value,
-        rfc: document.getElementById("rfc").value,
-        email: document.getElementById("emailUsuario").value,
-        password: document.getElementById("passwordUsuario").value,
-      };
+      if (!validarEmail(correo)) {
+        mensaje.innerText = "⚠️ Correo electrónico no válido.";
+        return;
+      }
 
-      formUsuario.style.display = "none";
-      document.getElementById("formNegocio").style.display = "block";
-    }
+      if (!validarPassword(password)) {
+        mensaje.innerText = "⚠️ La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.";
+        return;
+      }
 
-    document.getElementById("formNegocio").addEventListener("submit", async function(event) {
-      event.preventDefault();
-
-      const datosNegocio = {
-        nombreNegocio: document.getElementById("nombreNegocio").value,
-        ubicacionNegocio: document.getElementById("ubicacionNegocio").value,
-        linkMaps: document.getElementById("linkMaps").value,
-        codigoPostal: document.getElementById("codigoPostal").value,
-        rubroNegocio: document.getElementById("rubroNegocio").value,
-        enviosDomicilio: document.getElementById("enviosDomicilio").value === "true",
-        situacionFiscal: document.getElementById("situacionFiscal").value,
-        horarios: document.getElementById("horarios").value,
-        fotoNegocio: document.getElementById("fotoNegocio").value
-      };
-
-      const datosCompletos = {
-        ...datosUsuario,
-        ...datosNegocio
-      };
+      const datos = { nombre, correo, usuario, password };
 
       try {
-        const response = await fetch('http://localhost:3000/auth/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(datosCompletos)
+        const registro = await axios.post('http://localhost:4000/api/register', datos, {
+          withCredentials: true
         });
 
-        const result = await response.json();
-        if (!response.ok) throw new Error(result.message || "Error en el registro");
+        if (registro.status === 201) {
+          mensaje.style.color = "green";
+          mensaje.innerText = "✅ Registro exitoso. Iniciando sesión...";
 
-        alert("¡Registro exitoso!");
-        window.location.href = "sesion.html";
+          // Inicio de sesión automático
+          const login = await axios.post('http://localhost:4000/api/auth/login', {
+            usuario,
+            password
+          }, { withCredentials: true });
+
+          if (login.status === 200) {
+            window.location.href = "./tokenPrueba.html";
+          } else {
+            mensaje.innerText = "⚠️ Registro OK, pero fallo al iniciar sesión.";
+          }
+        }
       } catch (error) {
-        alert("Error: " + error.message);
+        console.error("Error al registrar:", error);
+        const msg = error.response?.data?.mensaje || error.message;
+        mensaje.innerText = "❌ Error: " + msg;
       }
     });
   </script>
+
+    <script type="module" src="scripts/loginLink.js"></script>
+
 </body>
 </html>
-
-
-<!-- registro.html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Registro - Sistema de Búsqueda Local</title>
-  <link rel="stylesheet" href="styleCSS/estilos4.css" />
-</head>
-<body>
-  <header class="header">
-    <h1>Sistema de Búsqueda Local</h1>
-  </header>
-
-  <main>
-    <div class="login-container">
-      <form id="registerForm" class="login-form">
-        <h2>Registrar Negocio</h2>
-
-        <div class="input-group"><label>Nombre</label><input type="text" id="nombre" required /></div>
-        <div class="input-group"><label>Negocio</label><input type="text" id="negocio" required /></div>
-        <div class="input-group"><label>Apellidos</label><input type="text" id="apellidos" /></div>
-        <div class="input-group"><label>Dirección</label><input type="text" id="direccion" required /></div>
-        
-        <div class="input-group">
-          <label for="estado">Estado</label>
-          <select id="estado" name="estado" required>
-            <option value="">Selecciona un estado</option>
-          </select>
-        </div>
-        
-        <div class="input-group">
-          <label for="municipio">Municipio</label>
-          <select id="municipio" name="municipio" required disabled>
-            <option value="">Selecciona un municipio</option>
-          </select>
-        </div>
-        
-        <div class="input-group">
-          <label for="localidad">Localidad</label>
-          <select id="localidad" name="localidad" required disabled>
-            <option value="">Selecciona una localidad</option>
-          </select>
-        </div>
-
-        <div class="input-group"><label>Información adicional</label><textarea id="informacionAdicional"></textarea></div>
-        <div class="input-group"><label>Categoría</label><input type="text" id="categoria" required /></div>
-        <div class="input-group"><label>Opción específica</label><input type="text" id="opcionEspecifica" required /></div>
-        <div class="input-group"><label>Subtemas (coma separados)</label><input type="text" id="subtemaEspecifico" required /></div>
-        <div class="input-group"><label>Foto principal (URL)</label><input type="text" id="foto" /></div>
-        <div class="input-group"><label>Foto del lugar (URL)</label><input type="text" id="fotoLugar" /></div>
-        <div class="input-group"><label>Link Google Maps</label><input type="text" id="linkGoogle" /></div>
-        <div class="input-group"><label>WhatsApp</label><input type="text" id="whats" required /></div>
-        <div class="input-group"><label>Horarios</label><input type="text" id="horarios" /></div>
-        <div class="input-group">
-          <label>¿Envíos a domicilio?</label>
-          <select id="enviosDomicilio">
-            <option value="true">Sí</option>
-            <option value="false">No</option>
-          </select>
-        </div>
-        <div class="input-group"><label>Rating (1-5)</label><input type="number" id="rating" min="1" max="5" /></div>
-        <div class="input-group"><label>Correo Electrónico</label><input type="email" id="email" required /></div>
-        <div class="input-group"><label>Contraseña</label><input type="password" id="password" required /></div>
-
-        <button type="submit">Registrarse</button>
-      </form>
-    </div>
-  </main>
-
-  <script>
-
-const estadoSelect = document.getElementById("estado");
-  const municipioSelect = document.getElementById("municipio");
-  const localidadSelect = document.getElementById("localidad");
-
-  // Cargar estados al iniciar
-  fetch("https://api-sepomex.hckdrk.mx/query/get_estados")
-    .then(response => response.json())
-    .then(data => {
-      const estados = data.response.estado;
-      estados.forEach(est => {
-        const option = document.createElement("option");
-        option.value = est;
-        option.textContent = est;
-        estadoSelect.appendChild(option);
-      });
-    });
-
-  // Cargar municipios según estado
-  estadoSelect.addEventListener("change", () => {
-    municipioSelect.innerHTML = '<option value="">Selecciona un municipio</option>';
-    municipioSelect.disabled = true;
-    localidadSelect.innerHTML = '<option value="">Selecciona una localidad</option>';
-    localidadSelect.disabled = true;
-
-    const estado = estadoSelect.value;
-    if (!estado) return;
-
-    fetch(`https://api-sepomex.hckdrk.mx/query/get_municipio_por_estado/${estado}`)
-      .then(response => response.json())
-      .then(data => {
-        const municipios = data.response.municipios;
-        municipios.forEach(mun => {
-          const option = document.createElement("option");
-          option.value = mun;
-          option.textContent = mun;
-          municipioSelect.appendChild(option);
-        });
-        municipioSelect.disabled = false;
-      });
-  });
-
-  // Cargar localidades según municipio
-  municipioSelect.addEventListener("change", () => {
-    localidadSelect.innerHTML = '<option value="">Selecciona una localidad</option>';
-    localidadSelect.disabled = true;
-
-    const estado = estadoSelect.value;
-    const municipio = municipioSelect.value;
-    if (!estado || !municipio) return;
-
-    fetch(`https://api-sepomex.hckdrk.mx/query/get_colonia_por_municipio/${estado}/${municipio}`)
-      .then(response => response.json())
-      .then(data => {
-        const localidades = data.response.colonia;
-        localidades.forEach(loc => {
-          const option = document.createElement("option");
-          option.value = loc;
-          option.textContent = loc;
-          localidadSelect.appendChild(option);
-        });
-        localidadSelect.disabled = false;
-      });
-  });
-
-    document.getElementById("registerForm").addEventListener("submit", async function(event) {
-      event.preventDefault();
-
-      const data = {
-        nombre: document.getElementById("nombre").value,
-        apellidos: document.getElementById("apellidos").value,
-        negocio: document.getElementById("negocio").value,
-        direccion: document.getElementById("direccion").value,
-        ubicacion: document.getElementById("ubicacion").value,
-        ubicacionFull: document.getElementById("ubicacionFull").value,
-        informacionAdicional: document.getElementById("informacionAdicional").value,
-        categoria: document.getElementById("categoria").value,
-        opcionEspecifica: document.getElementById("opcionEspecifica").value,
-        subtemaEspecifico: document.getElementById("subtemaEspecifico").value.split(",").map(e => e.trim()),
-        foto: document.getElementById("foto").value,
-        fotoLugar: document.getElementById("fotoLugar").value,
-        linkGoogle: document.getElementById("linkGoogle").value,
-        whats: document.getElementById("whats").value,
-        horarios: document.getElementById("horarios").value,
-        enviosDomicilio: document.getElementById("enviosDomicilio").value === "true",
-        rating: parseInt(document.getElementById("rating").value) || 0,
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value,
-      };
-
-      try {
-        const response = await fetch('http://localhost:3000/auth/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-        if (!response.ok) throw new Error(result.message || "Error en el registro");
-
-        alert("¡Registro exitoso!");
-        window.location.href = "sesion.html";
-      } catch (error) {
-        alert("Error: " + error.message);
-      }
-    });
-  </script>
-</body>
-</html> -->

@@ -26,6 +26,8 @@ router.get('/protegido', seguridad(), (req, res) => {
 
 // Logout: elimina cookie
 router.post('/logout', (req, res) => {
+    // Eliminar la cookie 'token' al cerrar sesión
+
   res.clearCookie('token', {
     httpOnly: true,
     secure: false, // ⚠️ debe coincidir con tu configuración real
@@ -38,13 +40,13 @@ router.post('/logout', (req, res) => {
 // Función de login
 async function login(req, res, next) {
   try {
-    const token = await controlador.login(req.body.usuario, req.body.password);
+    const token = await controlador.login(req.body.correo, req.body.password); 
 
     res.cookie('token', token, {
       httpOnly: true,
-      secure: true,           // solo HTTPS
+      secure: true,           // solo HTTPS en producción
       sameSite: 'lax',
-      maxAge: 60 * 60 * 1000  // 1 hora
+      maxAge: 7 * 24 * 60 * 60 * 1000  // 7 días (duración del token en la cookie)
     });
 
     respuesta.success(req, res, { mensaje: 'Login exitoso' }, 200);

@@ -1,0 +1,752 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --primario: #87CEEB;
+  --secundario: #0096FF;
+  --turquesa: #1F2937;
+  --blanco:   #FFFFFF;
+  --grisClaro: #dfe9f3;
+  --degradado: linear-gradient(135deg, #153a6d, #1f4c8a, #3f70b5);
+
+  
+ }
+ /* Globales */
+ html{
+  font-size: 62.5%;
+  box-sizing: border-box; /*Hack para el box model*/
+  scroll-snap-type: y mandatory; /*Sirve para que pare en donde esta lo imporante por ejemplo en servicios, la coniguracion esta mas abajo*/
+ }
+ *, *:before, *:after {
+  box-sizing: inherit;
+}
+#modal {
+  display: none; /* asegurar que está oculto por defecto */
+}
+
+  header { 
+    background-color: #153a6d;
+    color: #fff;
+    text-align: center;
+    font-size: 1.5rem; /* Tamaño del texto */
+    font-weight: bold; /* Opcional: hace el texto más grueso */
+    display: block; /* Ajusta el fondo al tamaño del texto */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header img {
+    max-width: 400px;
+    margin-top: 0;
+    margin-left: 20px;
+    height: auto;
+  }
+
+  .header h1 {
+    margin-right: 10px; /* Agrega un espacio entre el título y la imagen */
+  }
+  .header-content {
+    position: relative; /* Esto permite posicionar absolutamente dentro */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  
+  }
+  .logo {
+  
+    position: absolute;
+    right: 400px; /* Ajusta cuánto quieres que esté a la derecha */
+    top: 60%;
+    transform: translateY(-50%); /* Centra verticalmente */
+    width: 90px; /* Tamaño más grande para efecto "W" de fondo */
+    height: auto;
+    opacity: 0.3; /* Semi transparente para un look aesthetic */
+    z-index: 1; /* Detrás del título */
+    
+  }
+  @media (max-width: 768px) {
+    .logo {
+      width: 90px;
+      opacity: 0.3;
+      right: 160px; /* Ajusta cuánto quieres que esté a la derecha */
+      width: 120px; /* Tamaño más grande para efecto "W" de fondo */
+      
+    }
+  }
+
+  /* Para pantallas más grandes */
+@media (min-width: 431px) {
+  .header-content {
+    display: flex;
+    flex-direction: column; /* Opcional: si quieres que el título esté arriba y el logo abajo */
+    align-items: center; /* Centra horizontalmente los elementos */
+    justify-content: center; /* Centra verticalmente si fuera necesario */
+    text-align: center; /* Centra el texto */
+    margin-bottom: 10px;
+
+
+    
+  }
+
+  .title {
+    margin-bottom: 1rem; /* Espacio entre título y logo */
+    position: relative;
+    z-index: 2; /* Encima de la W */
+  }
+
+}
+  
+ body, h6{
+  
+  font-size: 17px; /* 1 rem = 10px con estos selectores (para adaptar mejor lo px a tv y demas)*/
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: white  
+  
+  }
+
+  /* Navegacion principal */
+.nav-bg {
+  background: var(--degradado);
+  
+}
+.navegacion-principal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.menu {
+  display: none; /* Oculto por defecto */
+  flex-direction: column;
+  align-items: center;
+  background: var(--degradado);
+  width: 100%;
+  padding: 1rem 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Animación al mostrar el menú */
+.menu.show {
+  display: flex; /* Muestra el menú cuando se activa */
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.menu a {
+  color: var(--blanco);
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+/* Efecto escalonado con nth-child */
+.menu.show a:nth-child(1) { animation-delay: 0.1s; }
+.menu.show a:nth-child(2) { animation-delay: 0.2s; }
+.menu.show a:nth-child(3) { animation-delay: 0.3s; }
+.menu.show a:nth-child(4) { animation-delay: 0.4s; }
+.menu.show a:nth-child(5) { animation-delay: 0.4s; }
+.menu.show a:nth-child(6) { animation-delay: 0.4s; }
+
+
+.menu a:hover {
+  color: black;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos para el ícono de menú */
+.menu-icon {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--blanco);
+  margin: 1rem 0;
+
+
+
+}
+
+@media (max-width: 767px) {
+  .menu-icon {
+    display: block; /* Muestra el icono en móviles */
+  }
+
+  .menu {
+    display: none; /* Asegúrate de que el menú esté oculto inicialmente en móviles */
+  }
+
+  .menu.show {
+    display: flex; /* Muestra el menú al activarlo en móviles */
+  }
+}
+
+
+
+@media (min-width: 768px) {
+  .menu {
+    display: flex; /* Menú siempre visible en pantallas grandes */
+    flex-direction: row;
+    justify-content: space-between;
+    position: static;
+    opacity: 1; /* Asegura que el menú sea opaco */
+    pointer-events: auto; /* Permite interactuar con los elementos */
+    transform: translateY(0); /* El menú se muestra de manera normal */
+    transition: none; /* Desactiva la transición de opacidad y transform para pantallas grandes */
+  }
+  .menu-icon {
+      display: none; /* Oculta el icono en pantallas grandes */
+  }
+}
+/* Menú desplegado */
+.menu.show {
+  display: flex; /* Muestra el menú al activarlo */
+}
+
+
+
+
+
+
+
+
+
+
+#modal {
+  display: none; /* asegurar que está oculto por defecto */
+}
+
+
+/* DE AQUI HACIA ARRIBA VA EN TODOS PARA QUE PUEDA FUNCIONAR EL MENU */
+
+
+
+
+
+
+
+
+
+
+
+/* Secciones generales */
+
+
+#seccion-datos-usuario
+{
+  background: linear-gradient(145deg, #1a1a1a, #000000, #2a2a2a);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 2rem 1.5rem;
+  max-width: 350px;
+  margin: 2rem auto;
+  text-align: center;
+  position: relative;
+  overflow: visible; 
+  z-index: 1;
+}
+
+
+
+
+
+
+#seccion-catalogo,
+#seccion-dashboard,
+#seccion-logout {
+background: white;
+
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 2rem 1.5rem;
+  max-width: 350px;
+  margin: 2rem auto;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#seccion-catalogo h2,
+#seccion-dashboard h1,
+#seccion-dashboard h2,
+#seccion-logout h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111827;
+  z-index: 1;
+  position: relative;
+}
+
+/* Botón de "Ver más detalles" y otros */
+#seccion-catalogo button,
+#seccion-dashboard button {
+  background-color: #111;
+  color: white;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 1rem;
+}
+
+#seccion-catalogo button:hover,
+#seccion-dashboard button:hover {
+  background-color: #333;
+}
+
+#formulario-imagenes {
+  margin-top: 1.5rem;
+  background-color: rgba(255,255,255,0.95);
+  padding: 1rem;
+  border-radius: 10px;
+  z-index: 1;
+  position: relative;
+}
+
+/* Estilo para inputs dentro de estas tarjetas */
+#formulario-imagenes input[type="file"],
+#formDashboard input,
+#formDashboard select,
+#formDashboard textarea {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* Estilo para la galería dentro del catálogo */
+#galeria-preview {
+  margin-top: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+#galeria-preview img {
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Entradas del dashboard */
+.entrada {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+/* Botón cancelar edición */
+#cancelarEdicion {
+  background-color: #e11d48;
+  color: white;
+}
+
+#cancelarEdicion:hover {
+  background-color: #be123c;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#seccion-datos-usuario::before {
+ content: "";
+  background-image: url('../img/atoto1.jpg'); /* o 'perfil2.jpg' si está en la misma carpeta */
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px; /* solo la parte superior como en la tarjeta */
+  z-index: 0;
+}
+
+#seccion-datos-usuario h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 1;
+  color: #111827;
+}
+
+#seccion-datos-usuario form {
+background-color: rgba(255, 255, 255, 0); /* Fondo completamente transparente */
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 1rem;
+  position: relative;
+}
+/*PARA LA IMG DE PERFIL -------------------------------------------------------- */
+
+#galeriaPerfil-preview {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Siempre 2 columnas */
+  gap: 12px;
+  justify-items: center;
+  padding: 10px 0;
+}
+
+.galeria img {
+  width: 100%;
+  max-width: 120px;
+  aspect-ratio: 1/1; /* Cuadradas */
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+}
+
+.galeria img:hover {
+  transform: scale(1.05);
+}
+
+#seccion-datos-usuario {
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Estilo para el contenedor de la imagen */
+.contenedor-perfil {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #000;
+  background-color: #f0f0f0;
+  z-index: 2;
+}
+
+.imagen-perfil {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  z-index: 1;
+  position: relative; 
+  clip-path: circle()
+}
+
+
+
+
+.imagen-perfil:hover {
+  filter: brightness(0.9);
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+/* 📷 Icono de cámara centrado abajo */
+.icono-camara {
+  position: absolute;
+  bottom: -20px; /*PARA SUBIR O BAJAR EL ICONO*/
+  left: 50%;
+  transform: translateX(-50%);
+
+
+  background: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
+  -webkit-backdrop-filter: blur(8px); /* Desenfoque de fondo */
+  backdrop-filter: blur(8px); /* Soporte Safari */
+
+  
+  border-radius: 50%;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 10;
+}
+
+/* Menú contextual sobre el icono, el de cambiar foto o eliminar foto*/
+.menu-opciones {
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  display: none;
+  flex-direction: column;
+  z-index: 10000;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  min-width: 120px;
+  font-size: 14px;
+}
+
+.menu-opciones.visible {
+  display: flex;
+}
+
+.menu-opciones .opcion {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.menu-opciones .opcion:hover {
+  background-color: #f0f0f0;
+}
+
+#seccion-datos-usuario,
+#galeriaPerfil-preview {
+  position: relative;
+  z-index: auto; /* Asegura que no estén por debajo */
+  overflow: visible; /* MUY IMPORTANTE: permite que los hijos sobresalgan */
+}
+
+.menu-opciones { /*Para que el menú no se corte visualmente o se esconda al hacer scroll*/
+  background-color: white;
+  z-index: 10000;
+  position: absolute;
+  overflow: visible;
+}
+
+.cuerpo {
+  position: relative;
+  overflow: visible;
+  z-index: 1;
+}
+/*------------------------------------------------*/
+
+/* Botón negro tipo "Seguir" */
+#seccion-datos-usuario form button {
+  background-color: #111;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#seccion-datos-usuario form button:hover {
+  background-color: #333;
+}
+
+
+
+/* Formularios */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+form input,
+form select,
+form textarea {
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #f9fafb;
+}
+
+form textarea {
+  resize: vertical;
+}
+
+form button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Botón rojo para cerrar sesión */
+#logout-btn {
+  background-color: #dc2626;
+  margin-top: 1rem;
+}
+
+#logout-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* Galerías de imágenes */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.galeria img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Modal */
+.modal {
+  display: none; /* Visible solo con JS */
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-contenido {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 90%;
+  width: 600px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.cerrar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Visibilidad */
+.oculto {
+  display: none;
+}
+
+/* Mensajes de éxito */
+#mensaje,
+#mensaje-subida {
+  color: #16a34a;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cuerpo {
+    padding: 1rem;
+  }
+
+  .modal-contenido {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .galeria {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+  form input,
+  form select,
+  form textarea,
+  form button {
+    font-size: 1rem;
+  }
+}
+
+.tituloTarjeta{
+  font-size: 3rem;
+  font-weight: 700;
+  color: black;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Sombra para destacar */
+  letter-spacing: 1px;
+  margin: 0 auto;         /* Centra horizontalmente si es un bloque */
+  padding: 1rem 0;
+  position: relative;
+  z-index: 2;
+  text-align: center;     /* Centra el texto */
+  display: block;         /* Ya está bien como bloque */
+}
+
+/* Opcional: una línea decorativa debajo del título */
+.tituloTarjeta::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 0.5rem auto 0;
+  background-color: #00bfff;
+  border-radius: 2px;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .tituloTarjeta {
+    font-size: 2.4rem;
+    padding: 0.8rem 0;
+  }
+}

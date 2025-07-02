@@ -104,8 +104,7 @@ function query(tabla, consulta) {
   });
 }
 
-
-//Para el registro:
+//INSERT
 function queryRaw(sql, params = []) {
     return new Promise((resolve, reject) => {
         conexion.query(sql, params, (error, result) => {
@@ -115,11 +114,36 @@ function queryRaw(sql, params = []) {
 }
 
 
+
+function actualizar(tabla, data, condiciones) {
+  return new Promise((resolve, reject) => {
+    const campos = Object.keys(data)
+      .map((key) => `${key} = ?`)
+      .join(', ');
+    const valores = Object.values(data);
+
+    const where = Object.keys(condiciones)
+      .map((key) => `${key} = ?`)
+      .join(' AND ');
+    const valoresWhere = Object.values(condiciones);
+
+    const sql = `UPDATE ${tabla} SET ${campos} WHERE ${where}`;
+
+    conexion.query(sql, [...valores, ...valoresWhere], (error, result) => {
+      return error ? reject(error) : resolve(result);
+    });
+  });
+}
+
+
+
+
 export default {
   todos,
   uno,
   agregar,
   eliminar,
   query,
-  queryRaw
+  queryRaw,
+  actualizar
 };

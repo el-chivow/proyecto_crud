@@ -12,7 +12,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       fetch("./JS/filtroDataDos.json").then(res => res.json()),
       fetch("./JS/filtroDataTres.json").then(res => res.json()),
       fetch("./JS/filtroDataCuatro.json").then(res => res.json()),
+
+
+
       fetch("./JS/data.json").then(res => res.json())
+
+      // fetch("http://localhost:4000/api/dashboard/publicos") En cuanto tenga todos los datos en mi base de datos
+      //mientras va a jalar de data.json, es provisional 
+
+      // TODAS LAS DIRECCIONES ESTÁN APUNTANDO A NIVEL LOCA, EN PRODUCCION SOLO CAMBIAREMOS DIRECCION DEL SERVIDOR
+      //PROPORCIONADO POR MI GESTOR DE SERVIDORES
+
+      // .then(res => res.json())
+      // .then(res => res.body.datos)
+
+
+
     ]);
         
     localidades = locData;
@@ -150,6 +165,7 @@ function initSearch() {
           const card = document.createElement("div");
           card.classList.add("result-card");
           card.innerHTML = `
+            <div class="result-card" data-id="${item.id}" ... >
             <img src="${item.foto}" alt="${item.nombre}">
             <h3>${item.nombre}</h3>
             <p><strong>Negocio:</strong> ${item.negocio}</p>            
@@ -228,66 +244,173 @@ function initSearch() {
       }
     }
   });
+  //A partir de aqui lo que va en el modal principal, el que todos ven y usar verficar para que los iniciados sesion puedan ver
+resultsContainer.addEventListener("click", (e) => {
+  if (e.target.closest(".result-card")) {
+    const card = e.target.closest(".result-card");
 
-  resultsContainer.addEventListener("click", (e) => {
-    if (e.target.closest(".result-card")) {
-      const card = e.target.closest(".result-card");
+    const name = card.querySelector("h3").textContent || "Nombre no proporcionado";
+    const businessElement = card.querySelector("p strong");
+    const business = businessElement ? businessElement.nextSibling.nodeValue.trim() : "Información no disponible";
+    const location = card.querySelector("h6")?.textContent.trim() || "Ubicación no disponible";
+    const horarios = card.dataset.horarios || "Horarios no disponibles";
+    const enviosDomicilio = card.dataset.enviosDomicilio || "Información no disponible";
+    const whatsapp = card.dataset.elWhats || "No disponible";
+    const lugarFoto = card.dataset.lugarFoto;
+    const googleLink = card.dataset.googleLink;
+    const informacionAdicional = card.dataset.informacionAdicional || "Información adicional no disponible";
+    const rating = parseInt(card.dataset.rating) || 0;
+    const negocioId = card.dataset.id;  // Asegúrate de que cada tarjeta tenga su negocioId
 
-      const name = card.querySelector("h3").textContent || "Nombre no proporcionado";
-      const businessElement = card.querySelector("p strong");
-      const business = businessElement ? businessElement.nextSibling.nodeValue.trim() : "Información no disponible";
-      const location = card.querySelector("h6")?.textContent.trim() || "Ubicación no disponible";
-      const horarios = card.dataset.horarios || "Horarios no disponibles";
-      const enviosDomicilio = card.dataset.enviosDomicilio || "Información no disponible";
-      const whatsapp = card.dataset.elWhats || "No disponible";
-      const lugarFoto = card.dataset.lugarFoto;
-      const googleLink = card.dataset.googleLink;
-      const informacionAdicional = card.dataset.informacionAdicional || "Información adicional no disponible";
-      const rating = parseInt(card.dataset.rating) || 0;
-
-      modalInfo.innerHTML = `
-        <p><strong>Encargado:</strong> ${name}</p>
-        <p><strong>Negocio:</strong> ${business}</p>
-        <p><strong>Ubicación:</strong> ${location}</p>
-        <p><strong>Horarios:</strong> ${horarios}</p>
-        <p><strong>Envíos a Domicilio:</strong> ${enviosDomicilio}</p> 
-        <p><strong>WhatsApp o llamada:</strong> ${whatsapp}</p>
-        <button class="buttonwhats" id="whatsappBtn" data-whatsapp="${whatsapp}">
-          Contactar por WhatsApp
-        </button>
-        <div style="text-align: center; margin-top: 10px;">
-          <strong style="display: block; margin-bottom: 5px; font-size: 16px;">FOTO DEL LUGAR</strong>
-          <div style="display: inline-block; padding: 10px; background: #f8f8f8; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
-            <img src="${lugarFoto}" alt="Foto de ${name}" style="max-width: 100%; height: auto; border-radius: 10px; display: block;">
-          </div>
+    modalInfo.innerHTML = `
+      <p><strong>Encargado:</strong> ${name}</p>
+      <p><strong>Negocio:</strong> ${business}</p>
+      <p><strong>Ubicación:</strong> ${location}</p>
+      <p><strong>Horarios:</strong> ${horarios}</p>
+      <p><strong>Envíos a Domicilio:</strong> ${enviosDomicilio}</p>
+      <p><strong>WhatsApp o llamada:</strong> ${whatsapp}</p>
+      <button class="buttonwhats" id="whatsappBtn" data-whatsapp="${whatsapp}">
+        Contactar por WhatsApp
+      </button>
+      <div style="text-align: center; margin-top: 10px;">
+        <strong style="display: block; margin-bottom: 5px; font-size: 16px;">FOTO DEL LUGAR</strong>
+        <div style="display: inline-block; padding: 10px; background: #f8f8f8; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+          <img src="${lugarFoto}" alt="Foto de ${name}" style="max-width: 100%; height: auto; border-radius: 10px; display: block;">
         </div>
-        <p><strong>Información adicional:</strong> ${informacionAdicional}</p>
-        <p><strong>Seguir ruta en Google Maps: </strong>
-          <a href="${googleLink}" target="_blank" rel="noopener noreferrer" style="color: #007bff; text-decoration: none; font-weight: bold;">
-            Google Maps
-          </a>
-        </p>
-        <div class="stars" data-rating="${rating}">
-          <p><strong>Calificación:</strong></p>
-          <span class="star" data-value="1">★</span>
-          <span class="star" data-value="2">★</span>
-          <span class="star" data-value="3">★</span>
-          <span class="star" data-value="4">★</span>
-          <span class="star" data-value="5">★</span>
-        </div>
-      `;
+      </div>
+      <p><strong>Información adicional:</strong> ${informacionAdicional}</p>
+      <p><strong>Seguir ruta en Google Maps: </strong>
+        <a href="${googleLink}" target="_blank" rel="noopener noreferrer" style="color: #007bff; text-decoration: none; font-weight: bold;">
+          Google Maps
+        </a>
+      </p>
+      <div class="stars" data-rating="${rating}">
+        <p><strong>Calificación:</strong></p>
+        <span class="star" data-value="1">★</span>
+        <span class="star" data-value="2">★</span>
+        <span class="star" data-value="3">★</span>
+        <span class="star" data-value="4">★</span>
+        <span class="star" data-value="5">★</span>
+      </div>
+    `;
 
-      const stars = modalInfo.querySelectorAll(".star");
-      stars.forEach((star) => {
-        const value = parseInt(star.getAttribute("data-value"));
-        if (value <= rating) {
-          star.classList.add("filled");
+// Actualizar las estrellas ya calificadas
+const stars = modalInfo.querySelectorAll(".star");
+stars.forEach((star) => {
+  const value = parseInt(star.getAttribute("data-value"));
+  if (value <= rating) {
+    star.classList.add("filled");
+  }
+});
+
+// Manejo de clics en estrellas para calificar
+stars.forEach((star) => {
+  star.addEventListener("click", function () {
+    const calificacion = parseInt(star.getAttribute("data-value"));
+
+        // Confirmación de la calificación
+    if (confirm(`¿Estás seguro de calificar con ${calificacion} estrellas?`)) {
+      // Llamar al backend para calificar el negocio
+      fetch(`/api/dashboard/calificar/${negocioId}`, {
+        method: 'POST',
+        credentials: 'include', // importante si usas cookies HTTPOnly
+
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          negocioId: negocioId,
+          calificacion: calificacion,
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          alert("Calificado con éxito");
+          // Actualizar la visualización del rating en el frontend
+          updateRatingDisplay(negocioId, data.rating);
+        } else {
+          alert("Hubo un problema al calificar.");
         }
+      })
+      .catch(error => {
+        console.error("Error al calificar:", error);
+        alert("Error al calificar.");
       });
-
-      openModal();
     }
   });
+});
+
+
+
+function updateRatingDisplay(negocioId, nuevoRating) {
+  const card = document.querySelector(`.result-card[data-id="${negocioId}"]`);
+  const stars = card.querySelectorAll(".star");
+
+  stars.forEach(star => {
+    const value = parseInt(star.getAttribute("data-value"));
+    if (value <= nuevoRating) {
+      star.classList.add("filled");
+    } else {
+      star.classList.remove("filled");
+    }
+  });
+
+  // Actualizar el texto de la calificación en la tarjeta
+  const ratingDisplay = card.querySelector('.rating-display');
+  if (ratingDisplay) {
+    ratingDisplay.textContent = `${nuevoRating} estrellas`;
+  }
+}
+//Obtener los datos:
+// Obtener la calificación al cargar el modal o cuando sea necesario
+fetch(`http://localhost:4000/api/dashboard/calificar/${negocioId}`)
+  .then(res => res.json())
+  .then(data => {
+    const rating = data.rating;
+    // Actualizar las estrellas en el frontend
+    actualizarRatingEnFrontend(rating);
+  })
+  .catch(error => {
+    console.error('Error al obtener la calificación:', error);
+  });
+
+// Función para actualizar las estrellas en el frontend
+function actualizarRatingEnFrontend(rating) {
+  const stars = document.querySelectorAll(".star");
+
+  stars.forEach(star => {
+    const value = parseInt(star.getAttribute("data-value"));
+    if (value <= rating) {
+      star.classList.add("filled");
+    } else {
+      star.classList.remove("filled");
+    }
+  });
+}
+
+
+
+    openModal();
+  }
+});
+
+// Función para actualizar la visualización de las estrellas con el nuevo rating
+function updateRatingDisplay(negocioId, newRating) {
+  const card = document.querySelector(`.result-card[data-id="${negocioId}"]`);
+  const stars = card.querySelectorAll(".star");
+
+  stars.forEach(star => {
+    const value = parseInt(star.getAttribute("data-value"));
+    if (value <= newRating) {
+      star.classList.add("filled");
+    } else {
+      star.classList.remove("filled");
+    }
+  });
+}
+
+
 }
 
 // Esperar a que toda la página esté cargada

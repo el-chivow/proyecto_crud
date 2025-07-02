@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const ubicacionSelect = document.getElementById('ubicacion');
     const opcionesEspecificasSelect = document.getElementById('opciones_especificas');
     const subtemasEspecificosSelect = document.getElementById('subtemas_especificos');
-  
+    
     try {
       const [categorias, subcategorias, detalles] = await Promise.all([
         fetch('./JS/filtroDataDos.json').then(res => res.json()),

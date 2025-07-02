@@ -1,6 +1,6 @@
-import { verificar } from '../../backend/src/middleware/verificar.js';
+import { verificar } from './verificar.js';
 
-// Función para abrir el modal y mostrar información del usuario (Aquí está lo mas relevante)
+// Función para abrir el modal y mostrar información del usuario
 async function abrirModal() {
   console.log("Se ejecutó abrirModal()");
 
@@ -49,23 +49,8 @@ if (datosNegocio.length > 0) {
     <p><strong>Horarios:</strong> ${item.horarios}</p>
     <p><strong>Envíos a domicilio:</strong> ${item.envios}</p>
     <p><strong>WhatsApp:</strong> ${item.whatsapp}</p>
-
-          <p><strong>Más info:</strong> ${item.latitud}</p>
-                <p><strong>Más info:</strong> ${item.longitud}</p>
-
-
     <p><strong>Más info:</strong> ${item.informacion_adicional}</p>
-    <p><a href="${item.google_maps}" target="_blank">Link otorgado por el cliente: </a></p>
-
-    <p>
-  <a href="https://www.google.com/maps/dir/?api=1&destination=${item.latitud},${item.longitud}&travelmode=driving" target="_blank">
-    🚗 Cómo llegar con Google Maps
-  </a>
-</p>
-  
-
-
-    
+    <p><a href="${item.google_maps}" target="_blank">📍 Ver en Google Maps</a></p>
     <p><em>Publicado el: ${fechaFormateada}</em></p>
   `;
 
@@ -398,7 +383,6 @@ function crearContenedorImagenPerfil(img = null, conMenu = true, esPerfil = fals
   }
 
   galeriaPreview.appendChild(contenedor);
-  return contenedor;
 }
 
 

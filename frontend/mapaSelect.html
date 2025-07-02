@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selección de tu ubicación</title>
+  <link rel="stylesheet" href="styleCSS/estilos.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    #map {
+      height: 400px;
+      border: 2px solid #333;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1 class="title">Selección de tu ubicación</h1>
+    </div>
+  </header>
+
+  <div class="nav-bg">
+    <nav class="navegacion-principal contenedor">
+      <button type="button" class="menu-icon" aria-label="Abrir menú">&#9776;</button>
+      <div class="menu">
+        <a href="index.html">Inicio</a>
+        <a href="anuncios.html">Anuncios</a>
+        <a href="noticias.html">Noticias Locales</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="contacto.html">Contáctanos</a>
+        <a href="sesion.html" id="loginLink">Iniciar sesión</a>
+      </div>
+    </nav>
+  </div>
+
+  <main>
+    <section class="map-section">
+      <div class="container">
+        <h2>Selecciona tu ubicación en el mapa</h2>
+        <div id="map"></div>
+        <p>📍 Latitud: <span id="lat">-</span></p>
+        <p>📍 Longitud: <span id="lng">-</span></p>
+        <button onclick="guardarUbicacion()" class="boton-buscar">Guardar ubicación</button>
+        <div id="enlace-mapa"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Sistema de Búsqueda Local. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- Google Maps y lógica -->
+  <script>
+    let map;
+    let marker;
+    let lat, lng;
+
+    function iniciarMapa() {
+      const centroDefault = { lat: 19.4326, lng: -99.1332 }; // CDMX
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: centroDefault,
+        zoom: 10,
+      });
+
+      // Intentar obtener la ubicación actual
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            lat = position.coords.latitude;
+            lng = position.coords.longitude;
+
+            const pos = { lat, lng };
+            map.setCenter(pos);
+            map.setZoom(15);
+
+            marker = new google.maps.Marker({
+              position: pos,
+              map: map,
+            });
+
+            document.getElementById("lat").textContent = lat.toFixed(8);
+            document.getElementById("lng").textContent = lng.toFixed(8);
+          },
+          function () {
+            alert("No se pudo obtener tu ubicación. Selecciona manualmente.");
+          }
+        );
+      }
+
+      // Clic manual en el mapa
+      map.addListener("click", function (event) {
+        lat = event.latLng.lat();
+        lng = event.latLng.lng();
+
+        const posicion = { lat, lng };
+
+        if (marker) {
+          marker.setPosition(posicion);
+        } else {
+          marker = new google.maps.Marker({
+            position: posicion,
+            map: map,
+          });
+        }
+
+        document.getElementById("lat").textContent = lat.toFixed(8);
+        document.getElementById("lng").textContent = lng.toFixed(8);
+      });
+    }
+
+    async function guardarUbicacion() {
+      if (!lat || !lng) {
+        alert("Selecciona una ubicación en el mapa.");
+        return;
+      }
+
+      try {
+if (window.opener) {
+  window.opener.postMessage({
+    tipo: 'ubicacion_guardada',
+    latitud: lat,
+    longitud: lng
+  }, '*'); // NOTA: reemplazar '*' por la URL segura
+  window.close();
+} else {
+  alert('No se pudo comunicar la ubicación al dashboard.');
+}
+
+        alert("✅ Ubicación guardada correctamente");
+
+if (window.opener) {
+  window.opener.postMessage({
+    tipo: 'ubicacion_guardada',
+    latitud: lat,
+    longitud: lng
+  }, '*'); // reemplazar el "*" por la URL de mi app si la subo a producción.
+
+  window.close(); // Cierra el popup sin recargar
+} 
+        
+        else {
+          window.location.href = 'miPerfil.html';
+        }
+      } catch (error) {
+        console.error("❌ Error al guardar ubicación:", error);
+        alert("❌ Ocurrió un error al guardar la ubicación. Intenta de nuevo.");
+      }
+    }
+
+    async function mostrarEnlaceGoogleMaps() {
+      try {
+        const res = await fetch('http://localhost:4000/api/dashboard/ubicacion', {
+          method: 'GET',
+          credentials: 'include'
+        });
+
+        const ubicacion = await res.json();
+
+        if (ubicacion.body?.datos) {
+          const { latitud, longitud } = ubicacion.body.datos;
+          const enlace = `https://www.google.com/maps?q=${latitud},${longitud}`;
+
+          document.getElementById('enlace-mapa').innerHTML = `
+            <p><a href="${enlace}" target="_blank">📍 Ver en Google Maps</a></p>
+          `;
+        }
+      } catch (err) {
+        console.error('❌ Error al obtener ubicación:', err);
+      }
+    }
+
+    // Ejecutar cuando se cargue el documento
+    window.addEventListener('DOMContentLoaded', mostrarEnlaceGoogleMaps);
+  </script>
+
+  <!-- Cargar la API de Google Maps -->
+  <script
+    async
+    defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1epgJuC9OSfYwWLy2fqRlrdNGBs9kgAw&callback=iniciarMapa">
+  </script>
+
+  <!-- Otros scripts -->
+  <script type="module" src="scripts/loginLink.js"></script>
+</body>
+</html>

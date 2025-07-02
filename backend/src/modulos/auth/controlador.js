@@ -1,5 +1,4 @@
 import bcrypt from 'bcrypt';
-const TABLA = 'auth';
 import * as auth from '../../auth/index.js';
 
 
@@ -11,45 +10,60 @@ export default function (dbInyectada) {
         db = require('../../DB/mysql')
     }
 
-async function login(usuario, password) {
-  const resultado = await db.query(TABLA, { usuario: usuario });
+      const TABLA_AUTH = 'auth';
+      const TABLA_USUARIOS = 'usuarios';
 
-  const data = resultado[0]; // ← aquí accedes al primer usuario
 
-  if (!data) {
+
+async function login(correo, password) {
+  // Paso 1: Buscar al usuario por su correo
+  const resultadoUsuario = await db.query(TABLA_USUARIOS, { correo: correo });
+
+
+  const usuario = resultadoUsuario[0]; // ← aquí accedes al primer usuario
+
+  if (!usuario) {
     throw new Error('Usuario no encontrado');
   }
 
-  return bcrypt.compare(password, data.password).then((resultado) => {
-    if (resultado === true) {
-      // Generar un token
-      return auth.asignarToken({ ...data });
-    } else {
-      throw new Error('Información inválida');
+  // Paso 2: Buscar su contraseña en la tabla auth, usando el id del usuario
+
+  const resultadoAuth = await db.query(TABLA_AUTH, { id: usuario.id });    
+  const datosAuth = resultadoAuth[0];
+
+    if (!datosAuth) {
+      throw new Error('Credenciales no encontradas');
     }
-  });
-}
+  
+      // Paso 3: Comparar contraseña
+    const passwordValida = await bcrypt.compare(password, datosAuth.password);
+    if (!passwordValida) {
+    throw new Error('Contraseña incorrecta');
+    }
+
+        // Paso 4: Generar token con datos del usuario
+       return auth.asignarToken({ id: usuario.id, correo: usuario.correo });
+  }
+
+  async function agregar(data) {
+    const authData = {
+      id: data.id,
+    };
+
+    if (data.usuario) {
+      authData.usuario = data.usuario;
+    }
+
+    if (data.password) {
+      authData.password = await bcrypt.hash(data.password.toString(), 6);
+    }
+
+    return db.agregar(TABLA_AUTH, authData);
+  }
+
+  return {
+    agregar,
+    login,
+  };
     
-    async function agregar (data) {
-        console.log('data', data)
-        const authData = {
-            id: data.id,
-        }
-
-        if(data.usuario){
-            authData.usuario = data.usuario
-        }
-
-        if(data.password){
-            authData.password = await bcrypt.hash(data.password.toString(), 6);
-        }
-
-
-        return db.agregar(TABLA, authData)
-    }    
-
-    return {
-        agregar,
-        login
-    }
 };

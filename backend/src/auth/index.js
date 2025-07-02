@@ -1,22 +1,33 @@
 import jwt from 'jsonwebtoken';
-import config from '../config.js'; // Asegúrate que `config.js` exporte correctamente
+import config from '../config.js'; 
 import respuesta from '../red/respuestas.js';
 import error from '../middleware/errors.js';
 const secret = config.jwt.secret;
 
 // 🔐 Genera un token con los datos del usuario
-export function asignarToken(data) {
+export function asignarToken(data) { //(generarAccessToken)
     // 🔐 Solo incluir lo necesario en el payload del token
     const payload = {
         id: data.id,
         usuario: data.usuario
-        // Puedes agregar más campos si son seguros (ej. roles, email, etc.)
+        // Agregar más campos si son seguros (como roles, email, etc.)
     };
 
     return jwt.sign(payload, secret, {
-        expiresIn: '1h'
+        expiresIn: '7d'
     });
 }
+
+//Genera un token temporal cuando ya se venció el token (Refresh Token (largo)
+
+// export function generarRefreshToken(data) {//----------------------------------------
+//   const payload = { //-------------------------------------------------------------------
+//     id: data.id // Más reducido    //----------------------------------------------------------
+//   }; //--------------------------------------------------------------------------------------------
+//   return jwt.sign(payload, secret, { //------------------------------------------------------------------
+//     expiresIn: '30d' //-----------------------------------------------------------------------------------------
+// });//-------------------------------------------------------------------------------------------------------------------//
+// }//
 
 // 🔍 Verifica que el token sea válido
 export function verificarToken(token) {
@@ -44,5 +55,6 @@ export function confirmarToken(req, res, next) {
 export default {
     asignarToken,
     verificarToken,
-    confirmarToken
+    confirmarToken,
+    //generarRefreshToken
 };

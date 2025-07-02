@@ -33,7 +33,7 @@
           <a href="noticias.html">Noticias Locales</a>
           <a href="servicios.html">Servicios</a>
           <a href="contacto.html">Contáctanos</a>
-          <a href="sesion.html" class="activo">Iniciar sesión</a>
+          <a href="sesion.html" id="loginLink"class="activo">Iniciar sesión</a>
         </div>
       </nav>
     </div>
@@ -56,61 +56,60 @@
           <button type="submit">Ingresar</button>
           <p class="message">
             ¿No tienes cuenta?
-            <a href="registro.html">Regístrate aquí</a>
+            <a href="/frontend/registro.html">Regístrate aquí</a>
+          </p>
+          <p class="message">
+            <a href="registro.html">¿Olvidaste tu contraseña?</a>
           </p>
         </form>
       </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-      document
-        .getElementById("loginForm")
-        .addEventListener("submit", async function (event) {
-          event.preventDefault();
+      document.getElementById("loginForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-          const emailInput = document.getElementById("email");
-          const passwordInput = document.getElementById("password");
-          const emailError = document.getElementById("emailError");
+    const correo = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const emailError = document.getElementById("emailError");
 
-          const emailPattern =
-            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(correo)) {
+      emailError.style.display = "block";
+      return;
+    } else {
+      emailError.style.display = "none";
+    }
 
-          if (!emailPattern.test(emailInput.value)) {
-            emailError.style.display = "block";
-            return;
-          } else {
-            emailError.style.display = "none";
-          }
+    if (password.length < 10) {
+      alert("La contraseña debe tener al menos 10 caracteres.");
+      return;
+    }
 
-          if (passwordInput.value.length < 10) {
-            alert("La contraseña debe tener al menos 10 caracteres.");
-            return;
-          }
+    try {
+      const response = await axios.post("http://localhost:4000/api/auth/login", {
+        correo, // 👈 usa "correo" que espera tu backend
+        password
+      }, {
+        withCredentials: true
+      });
 
-          try {
-            const response = await fetch("http://localhost:3000/auth/login", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                email: emailInput.value,
-                password: passwordInput.value,
-              }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-              throw new Error(data.message || "Error al iniciar sesión");
-            }
-
-            localStorage.setItem("token", data.access_token);
-            alert("Inicio de sesión exitoso");
-            // Puedes redirigir al dashboard o a otra vista
-            // window.location.href = "dashboard.html";
-          } catch (error) {
-            alert(`Error: ${error.message}`);
-          }
-        });
+      if (response.status === 200) {
+        alert("✅ Sesión iniciada correctamente");
+        window.location.href = "./miPerfil.html";
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      alert("❌ Error de inicio de sesión: " + (error.response?.data?.mensaje || error.message));
+    }
+  });
     </script>
+        <script type="module" src="JS/js.js"></script> 
+
+      <script type="module" src="scripts/loginLink.js"></script>
+
+      <script type="module" src="scripts/sesion.js"> </script>
+ 
   </body>
 </html>

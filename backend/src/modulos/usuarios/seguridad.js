@@ -1,6 +1,10 @@
+import { verificarToken, asignarToken } from '../../auth/index.js';
 
-//
-import { verificarToken } from '../../auth/index.js';
+
+
+
+
+
 export default function checkAuth() {
     function middleware(req, res, next) {
         const token = req.cookies.token;
@@ -19,3 +23,5 @@ export default function checkAuth() {
     }
     return middleware;
 }
+
+

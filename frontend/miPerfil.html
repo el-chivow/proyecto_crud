@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perfil de usuario</title>
+  <link rel="stylesheet" href="styleCSS/estiloPerfil.css">
+    <link rel="stylesheet" href="styleCSS/modalPerfil.css">
+
+</head>
+
+
+<body>
+
+  <!-- ========== Encabezado ========== -->
+  <div id="seccion-header">
+    <header class="header">
+      <div class="header-content">
+        <h1 class="title">Sistema de Búsqueda Local</h1>
+      </div>
+    </header>
+  </div>
+
+  <!-- ========== Navegación ========== -->
+  <div id="seccion-nav">
+    <div class="nav-bg">
+      <nav class="navegacion-principal contenedor">
+        <button type="button" class="menu-icon" aria-label="Abrir menú">
+          &#9776;
+        </button>
+        <div class="menu">
+          <a href="index.html">Inicio</a>
+          <a href="anuncios.html">Anuncios</a>
+          <a href="noticias.html">Noticias Locales</a>
+          <a href="servicios.html">Servicios</a>
+          <a href="contacto.html">Contáctanos</a>
+          <a href="sesion.html" id="loginLink">Iniciar sesión</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ========== Datos de Usuario ========== -->
+   <h1 class="tituloTarjeta">DATOS DEL USUARIO</h1>
+
+   <div class="cuerpo">
+
+  <!-- Contenedor de imagen de perfil -->
+
+  
+<div id="seccion-datos-usuario">
+
+  <div id="galeriaPerfil-preview" class="galeria"></div>
+
+  <form id="formPerfil" enctype="multipart/form-data" >
+    <input type="file" name="imagen" id="inputImagenPerfil" accept="image/*" style="display: none;" />
+    <button type="submit" id="btnSubir" style="display: none;">Guardar</button>
+  </form>
+</div>
+
+  <!-- ========== Catálogo ========== -->
+  <div id="seccion-catalogo">
+    <h2>Tu propio catálogo...</h2>
+    <button id="btn-ver-detalles">Ver...</button>
+
+    
+
+    <form id="formulario-imagenes" enctype="multipart/form-data">
+      <h3>Subir hasta 4 imágenes</h3>
+      <label for="input-imagenes">Selecciona imágenes:</label>
+      <input type="file" id="input-imagenes" name="imagenes" multiple required title="Selecciona una o varias imágenes"/>
+      <button type="submit">Subir Imágenes</button>
+      <p id="mensaje-subida"></p>
+    </form>
+
+    <div id="galeria-preview" class="galeria"></div>
+  </div>
+
+  <!-- ========== Modal Detalles ========== -->
+  <div id="seccion-modal">
+    <div id="modal" class="modal">
+      <div class="modal-contenido">
+        <span class="cerrar" id="btn-cerrar-modal">&times;</span>
+        <h3>Información de tus Servicios</h3>
+
+        <div class="solo-autenticado oculto">
+          <p id="nombre-usuario"></p>
+          <p id="correo-usuario"></p>
+
+          <img id="imagen-perfil-modal" src="" alt="Foto de perfil" style="width: 100px; border-radius: 50%; margin-bottom: 10px;" />
+
+
+          <h3>Galería de imágenes del usuario</h3>
+          <div id="galeria" class="galeria"></div>
+
+
+            <!-- 👇 Aquí insertamos los datos del negocio -->
+          <h3>🧾 Datos del negocio</h3>
+          <div id="modal-negocio"></div>
+
+
+
+        </div>
+
+        <div class="solo-invitado oculto">
+          <p>🔒 Inicia sesión para ver contacto y fotos exclusivas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Dashboard ========== -->
+  <div id="seccion-dashboard">
+
+    <h2>Datos del negocio:</h2>
+    <div id="entradas"></div>
+    <button onclick="cargarEntradas()">Ver los datos</button>
+
+    <p id="bienvenida"></p>
+
+    <form id="formDashboard" style="display: none;">
+
+      <!-- Campos ocultos para latitud y longitud -->
+<input type="hidden" id="inputLatitud" name="latitud">
+<input type="hidden" id="inputLongitud" name="longitud">
+<p id="estadoUbicacion"></p>  <!-- Mostrar un mensaje opcional cuando se guarda la ubicación -->
+
+
+      <label for="nombre">Nombre:</label><br />
+      <input type="text" id="nombre" name="nombre" required /><br /><br />
+
+      <label for="descripcion">Descripcion:</label><br />
+      <input type="text" id="descripcion" name="descripcion" required /><br /><br />
+
+      <label for="nombre_encargado">Nombre del Encargado:</label><br />
+      <input type="text" id="nombre_encargado" name="nombre_encargado" required /><br /><br />
+
+      <label for="nombre_negocio">Nombre del Negocio o Actividad:</label><br />
+      <input type="text" id="nombre_negocio" name="nombre_negocio" required /><br /><br />
+
+      <label for="ubicacion_escrita">Ubicación (referencia de como identificar el lugar):</label><br />
+      <textarea id="ubicacion_escrita" name="ubicacion_escrita" rows="4" cols="50"></textarea><br /><br />
+
+
+      <label for="horarios">Horarios de Apertura:</label><br />
+      <input type="text" id="horarios" name="horarios" placeholder="Día y hora de apertura (Ej: Lunes - 9:00 AM)" required /><br /><br />
+
+      <label for="envios">¿Envíos a domicilio?</label><br />
+      <select id="envios" name="envios" required>
+        <option value="si">Sí</option>
+        <option value="no">No</option>
+      </select><br /><br />
+
+      <label for="whatsapp">Número de WhatsApp:</label><br />
+      <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ejemplo: 773 181 2679" /><br /><br />
+
+      <label for="informacion_adicional">Información Adicional:</label><br />
+      <textarea id="informacion_adicional" name="informacion_adicional" rows="4" cols="50"></textarea><br /><br />
+
+      <label for="ubicacion_mapa">Ubicación con mapa interactivo:</label><br />
+      <button type="button" onclick="window.open('mapaSelect.html', '_blank')" class="boton-buscar">
+      Seleccionar ubicación desde el mapa
+      </button>
+      <br /><br />
+
+      <label for="google_maps">Link de su página (opcional):</label><br />
+      <input type="text" id="google_maps" name="google_maps" placeholder="Aquí irá la URL de Google Maps cuando esté disponible" /><br /><br />
+
+      <button type="submit">Guardar</button>
+      <button type="button" id="cancelarEdicion" style="display:none;">❌ Cancelar edición</button>
+    </form>
+
+    <p id="mensaje"></p>
+  </div>
+
+  <!-- ========== Cerrar Sesión ========== -->
+  <div id="seccion-logout">
+    <button id="logout-btn" onclick="cerrarSesion()">Cerrar Sesión</button>
+  </div>
+
+  <!-- ========== Scripts ========== -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="module" src="./scripts/dashboard.js"></script>
+  <script type="module" src="./scripts/tokenPrueba.js"></script>
+  <script type="module" src="scripts/loginLink.js"></script>
+  <script type="module" src="JS/js.js"></script>
+  </div>
+</body>
+</html>
+

@@ -27,6 +27,10 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+// SIRVE MI FRONTEND
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+
 app.use(cors({ // Permite peticiones desde HTML externo
   origin: 'http://localhost:5500', //  el puerto donde sirves tu HTML
   credentials: true                //  Esto permite enviar cookies
@@ -53,6 +57,8 @@ app.use(express.static(path.join(__dirname, 'public'))); // para imágenes está
 
 
 
+
+
 app.use(express.urlencoded({ extended: true }));
 //configuración
 app.set('port', config.app.port)
@@ -68,6 +74,7 @@ app.use('/api/imagenes', imagenesRouter);
 
 // Servir la carpeta pública
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 
 

@@ -12,6 +12,7 @@ export async function verificar() {
     }
 
     const data = await res.json();
+    console.log("Datos recibidos desde /protegido:", data);
     return data.usuario;
   } catch (e) {
     console.error('❌ Error al verificar sesión:', e.message);

@@ -1,6 +1,7 @@
 import path from 'path';
 import multer from 'multer';
 import fs from 'fs';
+
 import { fileURLToPath } from 'url';
 
 // Obtener __dirname del archivo actual
@@ -8,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Ruta absoluta a la carpeta /uploads al nivel de app.js
-const uploadDir = path.join(__dirname, '../../uploads');
+const uploadDir = path.join(__dirname, '../uploads');
 
 // Crear la carpeta si no existe
 if (!fs.existsSync(uploadDir)) {
@@ -37,25 +38,38 @@ const fileFilter = (req, file, cb) => {
 
 const reserved = ['con', 'aux', 'nul', 'prn', 'com1', 'lpt1'];
 
-const storage = multer.diskStorage({
+// Función de almacenamiento para imágenes generales
+const generalStorage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    let base = path.basename(file.originalname, ext)
+    const ext = path.extname(file.originalname).toLowerCase();
+    const timestamp = Date.now();
+    const safeName = path.basename(file.originalname, ext)
       .replace(/[^a-z0-9_\-]/gi, '_')
       .toLowerCase();
 
-    if (reserved.includes(base)) {
-      base = 'archivo_' + base;
-    }
-
-    const filename = Date.now() + '-' + base + ext;
+    const filename = `${timestamp}_${safeName}${ext}`;
     cb(null, filename);
   }
 });
 
-const upload = multer({
-  storage,
+// Función de almacenamiento para imágenes de perfil
+const profileStorage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+
+    let userId = req.user?.id || req.params?.userId || req.body?.userId || 'desconocido';
+    let base = 'perfil_' + userId;
+
+    const filename = base + ext;
+    cb(null, filename);
+  }
+});
+
+// Configuración de multer para las imágenes generales
+const generalUpload = multer({
+  storage: generalStorage,
   fileFilter,
   limits: {
     files: 4,
@@ -63,4 +77,18 @@ const upload = multer({
   }
 });
 
-export { upload };
+// Configuración de multer para las imágenes de perfil
+const profileUpload = multer({
+  storage: profileStorage,
+  fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB para la imagen de perfil
+  }
+});
+
+
+
+
+
+
+export { generalUpload, profileUpload };
