@@ -58,3 +58,5 @@ export default {
     confirmarToken,
     //generarRefreshToken
 };
+// req.user.id         // ID del usuario autenticado
+// req.user.usuario    // Nombre del usuario autenticado

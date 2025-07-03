@@ -2,10 +2,7 @@ import express from 'express';
 import respuesta from '../../red/respuestas.js';
 import controlador from './index.js';
 import seguridad from '../usuarios/seguridad.js'; // Middleware de autenticación
-import error from '../../middleware/errors.js';
-import bcrypt from 'bcrypt';
-import { body, validationResult } from 'express-validator';
-import db from '../../DB/mysql.js';
+
 
 
 
@@ -44,7 +41,7 @@ async function login(req, res, next) {
 
     res.cookie('token', token, {
       httpOnly: true,
-      secure: true,           // solo HTTPS en producción
+      secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000  // 7 días (duración del token en la cookie)
     });

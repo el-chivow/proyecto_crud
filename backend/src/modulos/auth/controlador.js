@@ -18,8 +18,6 @@ export default function (dbInyectada) {
 async function login(correo, password) {
   // Paso 1: Buscar al usuario por su correo
   const resultadoUsuario = await db.query(TABLA_USUARIOS, { correo: correo });
-
-
   const usuario = resultadoUsuario[0]; // ← aquí accedes al primer usuario
 
   if (!usuario) {
@@ -42,7 +40,10 @@ async function login(correo, password) {
     }
 
         // Paso 4: Generar token con datos del usuario
-       return auth.asignarToken({ id: usuario.id, correo: usuario.correo });
+       return auth.asignarToken({ 
+        id: usuario.id, 
+        correo: usuario.correo, 
+        usuario: datosAuth.usuario });
   }
 
   async function agregar(data) {

@@ -209,6 +209,8 @@ document.getElementById('formDashboard').addEventListener('submit', async (e) =>
   const detalle_ids = Array.from(document.querySelectorAll('#detalle_ids option:checked'))
                          .map(opt => parseInt(opt.value));
 
+                         console.log('detalle_ids:', detalle_ids);
+
 
 
 

@@ -11,6 +11,26 @@ export default function(dbInyectada) {
 
   // Guardar nueva entrada del dashboard
 async function guardarEntrada(data, userId) {
+  // Validar latitud y longitud
+  if (data.latitud !== null && isNaN(data.latitud)) {
+    throw new Error('❌ Latitud debe ser un número o nulo');
+  }
+  if (data.longitud !== null && isNaN(data.longitud)) {
+    throw new Error('❌ Longitud debe ser un número o nulo');
+  }
+
+// Validar detalle_ids: debe ser un arreglo de números
+  // if (!Array.isArray(data.detalle_ids)) {
+  //   throw new Error('❌ detalle_ids debe ser un arreglo');
+  // }
+
+ // Validar campos requeridos: nombre, nombre_negocio y ubicacion (no deben estar vacíos o solo tener espacios)
+  if (!data.nombre?.trim() || !data.nombre_negocio?.trim() || !data.ubicacion?.trim()) {
+    throw new Error('❌ Los campos nombre, nombre_negocio y ubicacion son requeridos y no pueden estar vacíos');
+  }
+
+
+
   const nuevaEntrada = {
     nombre: data.nombre,
     descripcion: data.descripcion,
@@ -38,11 +58,15 @@ async function guardarEntrada(data, userId) {
 
   // 👉 Luego insertamos los detalles en la tabla intermedia
   if (Array.isArray(data.detalle_ids)) {
-    for (const detalleId of data.detalle_ids) {
-      await db.agregar('detalles_datos', {
+      console.log("➡️ Insertando detalles:", data.detalle_ids);
+
+  for (const detalleId of data.detalle_ids) {
+      // Insertamos en la tabla detalles_datos
+      const resultadoInsercion = await db.agregar('detalles_datos', {
         negocio_id,
         detalle_id: detalleId
       });
+      console.log("Resultado de la inserción de detalle:", resultadoInsercion);
     }
   }
 
@@ -54,7 +78,7 @@ async function guardarEntrada(data, userId) {
     return db.query(TABLA, { usuarios_id: userId });
   }
 
-async function obtenerEntrada(usuarioId) {
+async function obtenerEntradaUnica(usuarioId) {
   console.log(`Obteniendo entrada para el usuario con ID: ${usuarioId}`);
   
   try {
@@ -74,6 +98,11 @@ async function obtenerEntrada(usuarioId) {
 
   // Actualizar entrada existente (por ID y validando usuario)
   async function actualizarEntrada(data, userId) {
+  
+  if (!data.nombre || !data.descripcion || !userId) {
+  throw new Error('Faltan campos obligatorios');
+}
+
     const condiciones = {
       negocio_id: data.negocio_id,
       usuarios_id: userId, // seguridad: sólo actualiza si pertenece al usuario
@@ -100,7 +129,7 @@ async function obtenerEntrada(usuarioId) {
   // Eliminar entrada (por ID y validando usuario)
   async function eliminarEntrada(id, userId) {
     const condiciones = {
-      id: id,
+      negocio_id: id,
       usuarios_id: userId, // seguridad: sólo elimina si pertenece al usuario
     };
 
@@ -171,6 +200,19 @@ async function obtenerTodas() {
 
   const resultados = await db.queryRaw(sql);
 
+
+  //----
+//   const sql = `
+//   SELECT d.*, GROUP_CONCAT(dd.detalle_id) AS detalle_ids
+//   FROM datos d
+//   LEFT JOIN detalles_datos dd ON d.negocio_id = dd.negocio_id
+//   WHERE d.localidad_id = ? AND d.categoria_id = ?
+//   GROUP BY d.negocio_id
+// `;
+
+// const resultados = await db.queryRaw(sql, [localidad_id, categoria_id]);
+  //--
+
   // Convertir string "163,164" a [163, 164]
   return resultados.map(row => ({
     ...row,
@@ -183,6 +225,14 @@ async function obtenerTodas() {
 
 //------------------------------------------- TODO ESTE BLOQUE ES PARA LA CALIFICACION POR ESTRELLAS
 async function calificarNegocio(usuarioId, negocioId, calificacion) {
+
+  // Validar calificación (debe ser un número entre 1 y 5) (Aun a prueba)
+  if (isNaN(calificacion) || calificacion < 1 || calificacion > 5) {
+    throw new Error('❌ La calificación debe ser un número entre 1 y 5');
+  }
+
+
+
   // Verifica si el usuario ya calificó este negocio
   const existe = await db.query('calificaciones', {
     usuarios_id: usuarioId,
@@ -213,7 +263,7 @@ async function calificarNegocio(usuarioId, negocioId, calificacion) {
   const nuevoPromedio = resultados[0].promedio;
 
   // Actualizar en la tabla datos
-  await db.actualizar('datos', { rating: nuevoPromedio }, { id: negocioId });
+  await db.actualizar('datos', { rating: nuevoPromedio }, { negocio_id: negocioId });
 
   return { nuevoPromedio };
 }
@@ -240,7 +290,7 @@ async function obtenerCalificacionNegocio(negocioId) {
     obtenerEntradas,
     actualizarEntrada,
     eliminarEntrada,
-    obtenerEntrada,
+    obtenerEntradaUnica,
     obtenerUsuario,
     guardarUbicacion,
      obtenerUbicacion,

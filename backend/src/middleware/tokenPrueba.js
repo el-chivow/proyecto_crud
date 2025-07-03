@@ -438,7 +438,7 @@ document.getElementById('formPerfil').addEventListener('submit', async (e) => {
   async function cargarImagenPerfil() {
     try {
       const res = await fetch('http://localhost:4000/api/imagenes/galeria/perfil', {
-        credentials: 'include' // Asegúrate de enviar las cookies con la solicitud
+        credentials: 'include'
       });
 
       const data = await res.json();

@@ -19,7 +19,7 @@ router.get('/publicos', obtenerTodasLasEntradas); //Para mostrar en el buscador
 
 
 
-router.get('/:id', seguridad(), obtenerEntrada); // Obtener entrada específica por ID
+router.get('/:id', seguridad(), obtenerEntradaUnica); // Obtener entrada específica por ID
 
 router.post('/', seguridad(), guardarEntrada);
 router.put('/:id', seguridad(), actualizarEntrada);
@@ -81,10 +81,10 @@ async function obtenerEntradas(req, res, next) {
 }
 
 // Obtener una entrada específica por ID
-async function obtenerEntrada(req, res, next) {
+async function obtenerEntradaUnica(req, res, next) {
   try {
     const usuarioId = req.user.id; // ID del usuario autenticado
-    const datos = await controlador.obtenerEntrada(usuarioId); // No necesitas el ID de la entrada aquí
+    const datos = await controlador.obtenerEntradaUnica(usuarioId); // No necesitas el ID de la entrada aquí
     
     if (!datos) {
       return respuesta.error(req, res, 'No se encontraron entradas para este usuario', 404);
@@ -112,9 +112,11 @@ async function guardarEntrada(req, res, next) {
       google_maps,
       latitud,
       longitud,
+
       localidad_id,
-    categoria_id,
-    subcategoria_id
+      categoria_id,
+      subcategoria_id,
+      detalle_ids
     } = req.body;
 
     // Puedes validar si al menos uno de los campos obligatorios está presente
@@ -137,9 +139,11 @@ async function guardarEntrada(req, res, next) {
       google_maps,
       latitud,
       longitud,
-            localidad_id,
-    categoria_id,
-    subcategoria_id
+
+      localidad_id,
+      categoria_id,
+      subcategoria_id,
+      detalle_ids
     };
 
       const yaExiste = await controlador.obtenerEntradas(userId);
@@ -176,7 +180,12 @@ async function actualizarEntrada(req, res, next) {
       informacion_adicional,
       google_maps,
       latitud,
-      longitud
+      longitud,
+
+      localidad_id,
+      categoria_id,
+      subcategoria_id,
+      detalle_ids
     } = req.body;
 
     if (!id || !nombre_negocio) {
@@ -196,7 +205,12 @@ async function actualizarEntrada(req, res, next) {
       informacion_adicional,
       google_maps,
       latitud,
-      longitud
+      longitud,
+
+      localidad_id,
+      categoria_id,
+      subcategoria_id,
+      detalle_ids
     };
 
     await controlador.actualizarEntrada(datosActualizados, req.user.id);
