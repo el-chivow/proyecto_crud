@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-      fetch("./JS/data.json").then(res => res.json())
+      //fetch("./JS/data.json").then(res => res.json())
 
       // fetch("http://localhost:4000/api/dashboard/publicos") En cuanto tenga todos los datos en mi base de datos
       //mientras va a jalar de data.json, es provisional 

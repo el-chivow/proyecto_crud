@@ -61,6 +61,18 @@ async function obtenerPerfilUsuario(req, res, next) {
 async function obtenerEntradas(req, res, next) {
   try {
     let datos = await controlador.obtenerEntradas(req.user.id);
+
+      // Si la consulta incluye detalle_ids, los agregamos----------
+    if (datos) {
+      datos = datos.map(entry => {
+        // Asegúrate de incluir detalle_ids si existen
+        entry.detalle_ids = entry.detalle_ids ? entry.detalle_ids.split(',') : [];
+        return entry;
+      });
+    }
+//--------------------------- PARA VER LOS detalles_ids
+
+
     if (!Array.isArray(datos)) datos = [datos];
     respuesta.success(req, res, { datos }, 200);
   } catch (err) {
@@ -99,7 +111,10 @@ async function guardarEntrada(req, res, next) {
       informacion_adicional,
       google_maps,
       latitud,
-      longitud
+      longitud,
+      localidad_id,
+    categoria_id,
+    subcategoria_id
     } = req.body;
 
     // Puedes validar si al menos uno de los campos obligatorios está presente
@@ -121,14 +136,17 @@ async function guardarEntrada(req, res, next) {
       informacion_adicional,
       google_maps,
       latitud,
-      longitud
+      longitud,
+            localidad_id,
+    categoria_id,
+    subcategoria_id
     };
 
       const yaExiste = await controlador.obtenerEntradas(userId);
 if (yaExiste.length > 0) {
   const datosActualizados = {
     ...datos,
-    id: yaExiste[0].id
+    negocio_id: yaExiste[0].negocio_id
   };
   await controlador.actualizarEntrada(datosActualizados, userId);
   return respuesta.success(req, res, { mensaje: "Actualizado con éxito" }, 200);
@@ -166,7 +184,7 @@ async function actualizarEntrada(req, res, next) {
     }
 
     const datosActualizados = {
-      id,
+      negocio_id,
       nombre,
       descripcion,
       nombre_encargado,

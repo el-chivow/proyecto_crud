@@ -4,8 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Perfil de usuario</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" /> <!-- es de Choices.js, para mejorar y manipular adecuadamente los select además de su bien estilo, para ya no usar jQuery ni Select2-->
+
+
+
+
   <link rel="stylesheet" href="styleCSS/estiloPerfil.css">
-    <link rel="stylesheet" href="styleCSS/modalPerfil.css">
+  <link rel="stylesheet" href="styleCSS/modalPerfil.css">
 
 </head>
 
@@ -138,6 +143,41 @@
       <label for="nombre_negocio">Nombre del Negocio o Actividad:</label><br />
       <input type="text" id="nombre_negocio" name="nombre_negocio" required /><br /><br />
 
+
+
+
+
+        <!-- ESTA PEQUEÑA AREA ES PARA PODER REGISTRARTE, LLAMANDO LOS DATOS DE LOS 
+         JSON DE LAS AREAS DISPONIBLES INCLUYENDO UBICACION Y LOS DATOS DE CADA NEGOCIO, LOS LLAMA POR NUMERO, NO PO BOMBRE Y ASI
+         LOS VA ASIGNAR A LA SU TABLA DE DATOS, QUE EN ESTE CASO ES "datos" en su base de datos llamada "ejemplo"-->
+
+         <!-- Localidad -->
+<label for="localidad_id">Localidad:</label><br />
+<select id="localidad_id" name="localidad_id" required style="width: 100%"></select><br /><br />
+
+<!-- Categoría -->
+<label for="categoria_id">Categoría:</label><br />
+<select id="categoria_id" name="categoria_id" required style="width: 100%"></select><br /><br />
+
+<!-- Subcategoría -->
+<label for="subcategoria_id">Subcategoría:</label><br />
+<select id="subcategoria_id" name="subcategoria_id" required style="width: 100%"></select><br /><br />
+
+<!-- Detalles (multi-selección) -->
+<label for="detalle_ids">Detalles del negocio:</label><br />
+<select id="detalle_ids" name="detalle_ids" multiple="multiple" style="width: 100%"></select><br /><br />
+       
+
+
+    <!----------------------------------->
+
+
+
+
+
+
+
+
       <label for="ubicacion_escrita">Ubicación (referencia de como identificar el lugar):</label><br />
       <textarea id="ubicacion_escrita" name="ubicacion_escrita" rows="4" cols="50"></textarea><br /><br />
 
@@ -180,10 +220,79 @@
 
   <!-- ========== Scripts ========== -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
   <script type="module" src="./scripts/dashboard.js"></script>
   <script type="module" src="./scripts/tokenPrueba.js"></script>
   <script type="module" src="scripts/loginLink.js"></script>
   <script type="module" src="JS/js.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script> <!-- Choices.js JS -->
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+    const [localidades, categorias, subcategorias, detalles] = await Promise.all([
+      fetch("./JS/filtroDataUno.json").then(res => res.json()),
+      fetch("./JS/filtroDataDos.json").then(res => res.json()),
+      fetch("./JS/filtroDataTres.json").then(res => res.json()),
+      fetch("./JS/filtroDataCuatro.json").then(res => res.json())
+    ]);
+
+    // Referencias a selects
+    const selectLocalidad = document.getElementById("localidad_id");
+    const selectCategoria = document.getElementById("categoria_id");
+    const selectSubcategoria = document.getElementById("subcategoria_id");
+    const selectDetalles = document.getElementById("detalle_ids");
+
+    // Inicializar Choices.js
+    const choicesLocalidad = new Choices(selectLocalidad, { placeholderValue: "Selecciona una localidad", shouldSort: false });
+    const choicesCategoria = new Choices(selectCategoria, { placeholderValue: "Selecciona una categoría", shouldSort: false });
+    const choicesSubcategoria = new Choices(selectSubcategoria, { placeholderValue: "Selecciona una subcategoría", shouldSort: false });
+    const choicesDetalles = new Choices(selectDetalles, { placeholderValue: "Selecciona uno o varios detalles", removeItemButton: true, maxItemCount: 5, shouldSort: false });
+
+    // Llenar localidades y categorías inicialmente
+    localidades.forEach(loc => choicesLocalidad.setChoices([{ value: loc.id, label: loc.nombre }], 'value', 'label', false));
+    categorias.forEach(cat => choicesCategoria.setChoices([{ value: cat.id, label: cat.nombre }], 'value', 'label', false));
+
+    // Evento: cuando cambia la categoría
+    selectCategoria.addEventListener("change", () => {
+      const categoriaId = parseInt(selectCategoria.value);
+
+      // Filtrar subcategorías por categoría seleccionada
+      const subcategoriasFiltradas = subcategorias.filter(sub => sub.categoria_id === categoriaId);
+
+      // Reset subcategoría y detalles
+      choicesSubcategoria.clearChoices();
+      choicesDetalles.clearChoices();
+
+      // Llenar subcategoría
+      choicesSubcategoria.setChoices(subcategoriasFiltradas.map(sc => ({
+        value: sc.id,
+        label: sc.nombre
+      })), 'value', 'label', false);
+    });
+
+    // Evento: cuando cambia la subcategoría
+    selectSubcategoria.addEventListener("change", () => {
+      const subcategoriaId = parseInt(selectSubcategoria.value);
+
+      // Filtrar detalles por subcategoría seleccionada
+      const detallesFiltrados = detalles.filter(det => det.subcategoria_id === subcategoriaId);
+
+      // Reset detalles
+      choicesDetalles.clearChoices();
+
+      // Llenar detalles
+      choicesDetalles.setChoices(detallesFiltrados.map(det => ({
+        value: det.id,
+        label: det.nombre
+      })), 'value', 'label', false);
+    });
+  });
+  </script>
+
+  
   </div>
 </body>
 </html>

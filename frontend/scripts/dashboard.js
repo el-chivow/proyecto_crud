@@ -201,6 +201,18 @@ document.getElementById('formDashboard').addEventListener('submit', async (e) =>
   const descripcion = document.getElementById('descripcion').value;
   const nombre_encargado = document.getElementById('nombre_encargado').value;
   const nombre_negocio = document.getElementById('nombre_negocio').value;
+
+  const localidad_id = parseInt(document.getElementById('localidad_id').value);
+  const categoria_id = parseInt(document.getElementById('categoria_id').value);
+  const subcategoria_id = parseInt(document.getElementById('subcategoria_id').value);
+  // Choices.js: para detalle_ids múltiples
+  const detalle_ids = Array.from(document.querySelectorAll('#detalle_ids option:checked'))
+                         .map(opt => parseInt(opt.value));
+
+
+
+
+
   const ubicacion = document.getElementById('ubicacion_escrita').value;
   const horarios = document.getElementById('horarios').value;
   const envios = document.getElementById('envios').value;
@@ -222,7 +234,12 @@ document.getElementById('formDashboard').addEventListener('submit', async (e) =>
     informacion_adicional,
     google_maps,
     latitud,
-    longitud
+    longitud,
+    
+    localidad_id,
+    categoria_id,
+    subcategoria_id,
+    detalle_ids
   };
 
   try {

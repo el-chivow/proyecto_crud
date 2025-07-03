@@ -10,32 +10,51 @@ export default function(dbInyectada) {
   }
 
   // Guardar nueva entrada del dashboard
-  async function guardarEntrada(data, userId) {
-    const nuevaEntrada = {
-      nombre: data.nombre,
-      descripcion: data.descripcion,
-      nombre_encargado: data.nombre_encargado,
-      nombre_negocio: data.nombre_negocio,
-      ubicacion: data.ubicacion,
-      horarios: data.horarios,
-      envios: data.envios,
-      whatsapp: data.whatsapp,
-      informacion_adicional: data.informacion_adicional,
-      google_maps: data.google_maps,
-      latitud: data.latitud,
-      longitud: data.longitud, 
-      usuarios_id: userId,
-    };
+async function guardarEntrada(data, userId) {
+  const nuevaEntrada = {
+    nombre: data.nombre,
+    descripcion: data.descripcion,
+    nombre_encargado: data.nombre_encargado,
+    nombre_negocio: data.nombre_negocio,
+    ubicacion: data.ubicacion,
+    horarios: data.horarios,
+    envios: data.envios,
+    whatsapp: data.whatsapp,
+    informacion_adicional: data.informacion_adicional,
+    google_maps: data.google_maps,
+    latitud: data.latitud,
+    longitud: data.longitud,
+    usuarios_id: userId,
 
-    return db.agregar(TABLA, nuevaEntrada);
+    // Campos nuevos
+    localidad_id: data.localidad_id,
+    categoria_id: data.categoria_id,
+    subcategoria_id: data.subcategoria_id
+  };
+
+  // 👉 Primero guardamos la entrada principal
+  const resultado = await db.agregar(TABLA, nuevaEntrada);
+  const negocio_id = resultado.insertId;
+
+  // 👉 Luego insertamos los detalles en la tabla intermedia
+  if (Array.isArray(data.detalle_ids)) {
+    for (const detalleId of data.detalle_ids) {
+      await db.agregar('detalles_datos', {
+        negocio_id,
+        detalle_id: detalleId
+      });
+    }
   }
+
+  return { ...nuevaEntrada, id: negocio_id };
+}
 
   // Obtener todas las entradas del usuario autenticado
   async function obtenerEntradas(userId) {
     return db.query(TABLA, { usuarios_id: userId });
   }
 
-async function obtenerEntrada(id, usuarioId) {
+async function obtenerEntrada(usuarioId) {
   console.log(`Obteniendo entrada para el usuario con ID: ${usuarioId}`);
   
   try {
@@ -56,7 +75,7 @@ async function obtenerEntrada(id, usuarioId) {
   // Actualizar entrada existente (por ID y validando usuario)
   async function actualizarEntrada(data, userId) {
     const condiciones = {
-      id: data.id,
+      negocio_id: data.negocio_id,
       usuarios_id: userId, // seguridad: sólo actualiza si pertenece al usuario
     };
 
@@ -100,7 +119,7 @@ async function obtenerEntrada(id, usuarioId) {
   }
 }
 
-//Para la ubicación con los datos lat y long direcamente con la API de google maps
+//Para la ubicación con los datos lat y long direcamente con la API de google maps-------------------------------
 
 async function guardarUbicacion(data) {
   try {
@@ -128,20 +147,39 @@ async function obtenerUbicacion(usuarios_id) {
 async function actualizarUbicacion({ latitud, longitud }, userId) {
   try {
     const resultado = await db.actualizar(TABLA, { latitud, longitud }, { usuarios_id: userId });
+
     if (resultado.affectedRows === 0) {
-      throw new Error("No se pudo actualizar la ubicación.");
+      // No existía: hacemos insert (crear fila nueva)
+      return await db.agregar(TABLA, { usuarios_id: userId, latitud, longitud });
     }
+
     return resultado;
   } catch (error) {
     console.error("Error al actualizar la ubicación:", error);
     throw error;
   }
 }
-
+//------------------------------------------------
+//CASO ESPECIAL, POR EL TEMA DEL ARREGLO A LA HORA DEL REGISTRO DE LO QUE SE VENDE Y SE MUESTRA AL PUBLICO (CHATGPT ME AYUDÓ A ESTO)-------------------
 async function obtenerTodas() {
-  return await db.todos(TABLA); // Para obtener todos los datos en publico de la tabla datos
-}
+  const sql = `
+    SELECT d.*, GROUP_CONCAT(dd.detalle_id) AS detalle_ids
+    FROM datos d
+    LEFT JOIN detalles_datos dd ON d.negocio_id = dd.negocio_id
+    GROUP BY d.negocio_id
+  `;
 
+  const resultados = await db.queryRaw(sql);
+
+  // Convertir string "163,164" a [163, 164]
+  return resultados.map(row => ({
+    ...row,
+    detalle_ids: row.detalle_ids
+      ? row.detalle_ids.split(',').map(Number)
+      : []
+  }));
+}
+//---------------------------------------------------
 
 //------------------------------------------- TODO ESTE BLOQUE ES PARA LA CALIFICACION POR ESTRELLAS
 async function calificarNegocio(usuarioId, negocioId, calificacion) {
