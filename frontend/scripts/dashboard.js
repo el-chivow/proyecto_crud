@@ -235,7 +235,7 @@ document.getElementById('formDashboard').addEventListener('submit', async (e) =>
     google_maps,
     latitud,
     longitud,
-    
+
     localidad_id,
     categoria_id,
     subcategoria_id,
@@ -253,7 +253,7 @@ document.getElementById('formDashboard').addEventListener('submit', async (e) =>
       });
 
       const result = await res.json();
-      document.getElementById('mensaje').innerText = result.body?.mensaje || 'Actualizado.';
+      document.getElementById('mensaje').innerText = result.body?.mensaje || 'Actualizado.' ;
 
       // Reset modo edición
       modoEdicion = false;
