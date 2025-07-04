@@ -13,7 +13,10 @@ const config = {
         user: process.env.MYSQL_USER || 'root',
         password: process.env.MYSQL_PASSWORD || '',
         database: process.env.MYSQL_DB || 'ejemplo'
-    }
+    },
+    googleMaps: {
+    mapsApiKey: process.env.GOOGLE_MAPS_API_KEY
+}
 }
 
 export default config;

@@ -183,12 +183,27 @@ if (window.opener) {
     window.addEventListener('DOMContentLoaded', mostrarEnlaceGoogleMaps);
   </script>
 
-  <!-- Cargar la API de Google Maps -->
-  <script
-    async
-    defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1epgJuC9OSfYwWLy2fqRlrdNGBs9kgAw&callback=iniciarMapa">
-  </script>
+  <!-- Cargar la API de Google Maps con la clave desde el backend -->
+<script>
+  async function cargarApiGoogleMaps() {
+    try {
+      const res = await fetch('http://localhost:4000/api/auth/mapsapikey'); // Ajusta si tienes un prefijo diferente
+      const data = await res.json();
+      const apiKey = data.apiKey;
+
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=iniciarMapa`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    } catch (error) {
+      console.error("❌ Error al cargar Google Maps API:", error);
+      alert("No se pudo cargar el mapa. Intenta más tarde.");
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', cargarApiGoogleMaps);
+</script>
 
   <!-- Otros scripts -->
   <script type="module" src="scripts/loginLink.js"></script>

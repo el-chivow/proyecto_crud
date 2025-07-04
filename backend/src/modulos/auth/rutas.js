@@ -2,6 +2,8 @@ import express from 'express';
 import respuesta from '../../red/respuestas.js';
 import controlador from './index.js';
 import seguridad from '../usuarios/seguridad.js'; // Middleware de autenticación
+import config from '../../config.js';
+
 
 
 
@@ -19,6 +21,11 @@ router.get('/protegido', seguridad(), (req, res) => {
     mensaje: 'Acceso autorizado',
     usuario: req.user,
   });
+});
+
+//La api de google, estará aquí a salvo
+router.get('/mapsapikey', (req, res) => {
+  res.json({ apiKey: config.googleMaps.mapsApiKey });
 });
 
 // Logout: elimina cookie
