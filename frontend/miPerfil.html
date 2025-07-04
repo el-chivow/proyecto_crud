@@ -245,11 +245,36 @@
     const selectSubcategoria = document.getElementById("subcategoria_id");
     const selectDetalles = document.getElementById("detalle_ids");
 
-    // Inicializar Choices.js
-    const choicesLocalidad = new Choices(selectLocalidad, { placeholderValue: "Selecciona una localidad", shouldSort: false });
-    const choicesCategoria = new Choices(selectCategoria, { placeholderValue: "Selecciona una categoría", shouldSort: false });
-    const choicesSubcategoria = new Choices(selectSubcategoria, { placeholderValue: "Selecciona una subcategoría", shouldSort: false });
-    const choicesDetalles = new Choices(selectDetalles, { placeholderValue: "Selecciona uno o varios detalles", removeItemButton: true, maxItemCount: 5, shouldSort: false });
+    // Opciones en español para Choices.js
+    const opcionesChoices = {
+      noResultsText: "No se encontraron resultados",
+      noChoicesText: "No hay opciones disponibles",
+      itemSelectText: "Presiona para seleccionar",
+      removeItemButton: true,
+      shouldSort: false
+    };
+
+    // Inicializar Choices.js con textos traducidos
+    const choicesLocalidad = new Choices(selectLocalidad, {
+      ...opcionesChoices,
+      placeholderValue: "Selecciona una localidad"
+    });
+
+    const choicesCategoria = new Choices(selectCategoria, {
+      ...opcionesChoices,
+      placeholderValue: "Selecciona una categoría"
+    });
+
+    const choicesSubcategoria = new Choices(selectSubcategoria, {
+      ...opcionesChoices,
+      placeholderValue: "Selecciona una subcategoría"
+    });
+
+    const choicesDetalles = new Choices(selectDetalles, {
+      ...opcionesChoices,
+      placeholderValue: "Selecciona uno o varios detalles",
+      maxItemCount: 5
+    });
 
     // Llenar localidades y categorías inicialmente
     localidades.forEach(loc => choicesLocalidad.setChoices([{ value: loc.id, label: loc.nombre }], 'value', 'label', false));
